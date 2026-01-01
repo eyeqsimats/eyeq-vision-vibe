@@ -224,7 +224,7 @@ const Index = () => {
       role: "President",
       quote:
         "My vision is to shape this club into a creative space where innovation meets collaboration... where every member learns, grows, and contributes to the ever-evolving world of AI and technology.",
-      imageUrl: "/team/President.JPG",
+      imageUrl: "/dist/team/President.JPG",
       linkedinUrl: "https://www.linkedin.com/in/aswath-s-a37475336/",
     },
     {
@@ -232,7 +232,7 @@ const Index = () => {
       role: "Vice President",
       quote:
         "Leading with passion and purpose, I strive to create an environment where every idea is valued and every member feels empowered to push boundaries.",
-      imageUrl: "/team/Vice President.jpg",
+      imageUrl: "/dist/team/Vice President.jpg",
       linkedinUrl: "http://www.linkedin.com/in/sasvanthu-g",
     },
     {
@@ -242,14 +242,6 @@ const Index = () => {
         "Organization meets inspiration. My goal is to ensure our community runs smoothly while fostering meaningful connections and collaborative learning.",
       imageUrl: "/team/Secretary.jpg",
       linkedinUrl: "https://www.linkedin.com/in/harsh-limkar/",
-    },
-    {
-      name: "Suvedhan G",
-      role: "Treasurer",
-      quote:
-        "Managing resources wisely to fuel innovation. Every project deserves the support it needs to transform ideas into reality.",
-      imageUrl: "/team/Treasurer.jpg",
-      linkedinUrl: "https://www.linkedin.com/in/suvedhan-g-284290389/",
     },
   ];
 
@@ -621,7 +613,7 @@ const Index = () => {
                       </h2>
                     </ScrollReveal>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="flex flex-wrap justify-center gap-8">
                       {teamMembers.map((member, index) => (
                         <ScrollReveal key={index} delay={index * 100} animation="slide-up" duration={800}>
                           <TeamMember

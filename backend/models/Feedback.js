@@ -70,6 +70,19 @@ const Feedback = {
       throw error;
     }
     return data;
+  },
+
+  async delete(id) {
+    const { error } = await supabase
+      .from('feedback')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Supabase feedback delete error:', error);
+      throw error;
+    }
+    return true;
   }
 };
 

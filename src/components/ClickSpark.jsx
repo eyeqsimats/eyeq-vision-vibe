@@ -18,17 +18,11 @@ const ClickSpark = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const parent = canvas.parentElement;
-    if (!parent) return;
-
     let resizeTimeout;
 
     const resizeCanvas = () => {
-      const { width, height } = parent.getBoundingClientRect();
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-      }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     const handleResize = () => {
@@ -36,13 +30,11 @@ const ClickSpark = ({
       resizeTimeout = setTimeout(resizeCanvas, 100);
     };
 
-    const ro = new ResizeObserver(handleResize);
-    ro.observe(parent);
-
+    window.addEventListener('resize', handleResize);
     resizeCanvas();
 
     return () => {
-      ro.disconnect();
+      window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimeout);
     };
   }, []);
@@ -116,9 +108,9 @@ const ClickSpark = ({
   const handleClick = e => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    
+    const x = e.clientX;
+    const y = e.clientY;
 
     const now = performance.now();
     const newSparks = Array.from({ length: sparkCount }, (_, i) => ({
@@ -131,26 +123,60 @@ const ClickSpark = ({
     sparksRef.current.push(...newSparks);
   };
 
+  const handleMouseMove = e => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const x = e.clientX;
+    const y = e.clientY;
+
+    const now = performance.now();
+    
+    // Add sparks less frequently on mouse move (every 50ms)
+    if (!handleMouseMove.lastTime || now - handleMouseMove.lastTime > 50) {
+      const newSparks = Array.from({ length: Math.ceil(sparkCount / 2) }, (_, i) => ({
+        x,
+        y,
+        angle: (2 * Math.PI * i) / Math.ceil(sparkCount / 2) + (now % 1000) / 1000 * Math.PI,
+        startTime: now
+      }));
+
+      sparksRef.current.push(...newSparks);
+      handleMouseMove.lastTime = now;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClick);
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('click', handleClick);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [sparkCount]);
+
   return (
     <div
       style={{
         position: 'relative',
         width: '100%',
+        minHeight: '100vh',
         height: '100%'
       }}
-      onClick={handleClick}
     >
       <canvas
         ref={canvasRef}
         style={{
-          width: '100%',
-          height: '100%',
+          width: '100vw',
+          height: '100vh',
           display: 'block',
           userSelect: 'none',
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          zIndex: 9999
         }}
       />
       {children}

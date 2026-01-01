@@ -121,6 +121,20 @@ router.get('/projects', protect, admin, async (req, res) => {
     }
 });
 
+// @desc    Delete contribution
+// @route   DELETE /api/admin/contributions/:id
+// @access  Admin
+router.delete('/contributions/:id', protect, admin, async (req, res) => {
+    try {
+        await Contribution.delete(req.params.id);
+        console.log(`[ADMIN] Deleted contribution ${req.params.id}`);
+        res.json({ message: 'Contribution deleted' });
+    } catch (error) {
+        console.error('[ADMIN] Error deleting contribution:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // @desc    Get all feedback
 // @route   GET /api/admin/feedback
 // @access  Admin
@@ -172,6 +186,24 @@ router.get('/feedback', protect, admin, async (req, res) => {
         res.json(enrichedFeedbacks);
     } catch (error) {
         console.error('[ADMIN] Error fetching feedback:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// @desc    Delete feedback
+// @route   DELETE /api/admin/feedback/:id
+// @access  Admin
+router.delete('/feedback/:id', protect, admin, async (req, res) => {
+    try {
+        const feedback = await Feedback.findById(req.params.id);
+        if (!feedback) {
+            return res.status(404).json({ message: 'Feedback not found' });
+        }
+        await Feedback.delete(req.params.id);
+        console.log(`[ADMIN] Deleted feedback ${req.params.id}`);
+        res.json({ message: 'Feedback deleted' });
+    } catch (error) {
+        console.error('[ADMIN] Error deleting feedback:', error);
         res.status(500).json({ message: error.message });
     }
 });

@@ -16,6 +16,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import QueriesTab from './QueriesTab';
 import AchievementsTab from './AchievementsTab';
 import { getAuth, updateProfile as updateFirebaseProfile } from 'firebase/auth';
+import ClickSpark from '@/components/ClickSpark';
 
 const MemberDashboard = () => {
     const { user, logout, loading } = useAuth();
@@ -49,6 +50,24 @@ const MemberDashboard = () => {
     const [uploadingPhoto, setUploadingPhoto] = useState(false);
     const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
+    // Cursor Smoke Effect State
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorActive, setCursorActive] = useState(false);
+
+    // Rainbow Effect State
+    const [rainbowCards, setRainbowCards] = useState<Set<string>>(new Set());
+
+    const triggerRainbow = (cardId: string) => {
+        setRainbowCards(prev => new Set(prev).add(cardId));
+        setTimeout(() => {
+            setRainbowCards(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(cardId);
+                return newSet;
+            });
+        }, 2000);
+    };
+
     useEffect(() => {
         if (user) fetchProfile();
         fetchProjects();
@@ -70,7 +89,8 @@ const MemberDashboard = () => {
     }, [user]);
 
     useEffect(() => {
-        if (profile) {
+        // Don't overwrite in-progress edits when the profile auto-refreshes
+        if (profile && !isEditingProfile) {
             setEditProfileData({
                 name: profile.name || '',
                 bio: profile.bio || '',
@@ -82,8 +102,21 @@ const MemberDashboard = () => {
                 mobileNumber: profile.mobileNumber || ''
             });
         }
-    }, [profile]);
+    }, [profile, isEditingProfile]);
 
+    useEffect(() => {
+        const handleMove = (e: PointerEvent) => {
+            setCursorPos({ x: e.clientX, y: e.clientY });
+            setCursorActive(true);
+        };
+        const handleLeave = () => setCursorActive(false);
+        window.addEventListener('pointermove', handleMove);
+        window.addEventListener('pointerleave', handleLeave);
+        return () => {
+            window.removeEventListener('pointermove', handleMove);
+            window.removeEventListener('pointerleave', handleLeave);
+        };
+    }, []);
     const fetchProfile = async () => {
         try {
             const { data } = await api.get(`/users/profile/${user?.uid}`);
@@ -257,12 +290,28 @@ const MemberDashboard = () => {
     };
 
     return (
-        <motion.div
-            className="container mx-auto p-6 space-y-8 max-w-7xl"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-        >
+        <ClickSpark sparkRadius={105}>
+        <div className="dashboard-3d-shell relative overflow-hidden">
+            <div className="dashboard-3d-grid" />
+            <div className="ghost-veil" />
+            <div className="dashboard-3d-glow">
+                <div className="floating-orb" style={{ top: '-120px', left: '-80px', background: 'radial-gradient(circle, rgba(59,130,246,0.38), transparent 60%)' }} />
+                <div className="floating-orb" style={{ bottom: '-140px', right: '-120px', background: 'radial-gradient(circle, rgba(99,102,241,0.32), transparent 60%)' }} />
+                <div className="floating-orb" style={{ top: '32%', right: '12%', background: 'radial-gradient(circle, rgba(56,189,248,0.28), transparent 60%)' }} />
+            </div>
+            <div
+                className="smoke-cursor"
+                style={{
+                    transform: `translate(${cursorPos.x - 80}px, ${cursorPos.y - 80}px)`,
+                    opacity: cursorActive ? 0.65 : 0
+                }}
+            />
+            <motion.div
+                className="container mx-auto p-6 space-y-8 max-w-7xl relative z-10"
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
+            >
             {/* Announcement Banner */}
             <AnimatePresence>
                 {announcement && (
@@ -270,7 +319,7 @@ const MemberDashboard = () => {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-4 rounded-xl shadow-lg flex justify-between items-center relative overflow-hidden"
+                        className="neo-surface-3d bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 text-white p-4 rounded-xl shadow-lg flex justify-between items-center relative overflow-hidden"
                     >
                         <div className="flex items-center gap-3 z-10">
                             <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
@@ -281,7 +330,7 @@ const MemberDashboard = () => {
                                 <p className="font-medium text-lg">{announcement.message}</p>
                             </div>
                         </div>
-                        <Button variant="ghost" size="icon" className="hover:bg-white/10 text-white z-10" onClick={() => setAnnouncement(null)}>
+                        <Button variant="ghost" size="icon" className="neo-button-3d hover:bg-white/10 text-white z-10" onClick={() => setAnnouncement(null)}>
                             <X className="w-5 h-5" />
                         </Button>
                         {/* Decorative Circle */}
@@ -291,17 +340,8 @@ const MemberDashboard = () => {
             </AnimatePresence>
 
             {/* Header */}
-            <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-card p-6 rounded-xl shadow-sm border border-border">
+            <motion.div variants={itemVariants} className="neo-surface-3d flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-card p-6 rounded-xl shadow-sm border border-border">
                 <div className="flex items-center gap-4">
-                    <div className="relative">
-                        <div className="h-20 w-20 rounded-full bg-gradient-to-tr from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg overflow-hidden border-2 border-border">
-                            {profile?.photoURL ? (
-                                <img src={profile.photoURL} alt="Profile" className="w-full h-full object-cover" />
-                            ) : (
-                                profile?.name?.charAt(0) || user?.displayName?.charAt(0) || 'M'
-                            )}
-                        </div>
-                    </div>
                     <div>
                         <div className="flex items-center gap-3">
                             <h1 className="text-3xl font-bold text-foreground tracking-tight">Welcome, {profile?.name || user?.displayName || 'Member'}! 👋</h1>
@@ -317,7 +357,7 @@ const MemberDashboard = () => {
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" onClick={handleLogout} className="hover:bg-destructive/10 hover:text-destructive transition-colors gap-2 border-border text-foreground"><LogOut className="w-4 h-4" /> Logout</Button>
+                    <Button variant="outline" onClick={handleLogout} className="neo-button-3d hover:bg-destructive/10 hover:text-destructive transition-colors gap-2 border-border text-foreground"><LogOut className="w-4 h-4" /> Logout</Button>
                 </div>
             </motion.div>
 
@@ -325,8 +365,8 @@ const MemberDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <motion.div variants={itemVariants}>
                     <Card
-                        className="bg-card border-l-4 border-l-orange-500 shadow-sm hover:shadow-md transition-all hover:scale-[1.02] duration-300 cursor-pointer relative overflow-hidden group border-border"
-                        onClick={() => setShowStreakDetails(!showStreakDetails)}
+                        className="neo-surface-3d ghost-card border-l-4 border-l-emerald-500 shadow-sm hover:shadow-md transition-all hover:scale-[1.02] duration-300 cursor-pointer relative overflow-hidden group border-border card-rainbow-active"
+                        onClick={() => { setShowStreakDetails(!showStreakDetails); triggerRainbow('streak'); }}
                     >
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-semibold text-muted-foreground">
@@ -374,8 +414,8 @@ const MemberDashboard = () => {
                 </motion.div>
                 <motion.div variants={itemVariants}>
                     <Card
-                        className="bg-card border-l-4 border-l-blue-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border"
-                        onClick={() => setActiveTab("projects")}
+                        className="neo-surface-3d ghost-card border-l-4 border-l-amber-400 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border card-rainbow-active"
+                        onClick={() => { setActiveTab("projects"); triggerRainbow('projects'); }}
                     >
                         <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-muted-foreground">Total Projects</CardTitle></CardHeader>
                         <CardContent className="text-4xl font-bold text-foreground">{profile?.stats?.totalProjects || 0}</CardContent>
@@ -383,8 +423,8 @@ const MemberDashboard = () => {
                 </motion.div>
                 <motion.div variants={itemVariants}>
                     <Card
-                        className="bg-card border-l-4 border-l-green-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border"
-                        onClick={() => setActiveTab("projects")}
+                        className="neo-surface-3d ghost-card border-l-4 border-l-emerald-400 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border card-rainbow-active"
+                        onClick={() => { setActiveTab("projects"); triggerRainbow('approved'); }}
                     >
                         <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-muted-foreground">Approved</CardTitle></CardHeader>
                         <CardContent className="text-4xl font-bold text-green-500">{profile?.stats?.approvedProjects || 0}</CardContent>
@@ -392,8 +432,8 @@ const MemberDashboard = () => {
                 </motion.div>
                 <motion.div variants={itemVariants}>
                     <Card
-                        className="bg-card border-l-4 border-l-purple-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer relative overflow-hidden group border-border"
-                        onClick={() => setShowLongestStreakDetails(!showLongestStreakDetails)}
+                        className="neo-surface-3d ghost-card border-l-4 border-l-rose-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer relative overflow-hidden group border-border card-rainbow-active"
+                        onClick={() => { setShowLongestStreakDetails(!showLongestStreakDetails); triggerRainbow('longest'); }}
                     >
                         <CardHeader className="pb-2">
                             <CardTitle className="text-sm font-semibold text-muted-foreground">
@@ -439,8 +479,8 @@ const MemberDashboard = () => {
 
                 <motion.div variants={itemVariants}>
                     <Card
-                        className="bg-card border-l-4 border-l-yellow-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border"
-                        onClick={() => setActiveTab("achievements")}
+                        className="neo-surface-3d ghost-card border-l-4 border-l-amber-500 shadow-sm hover:shadow-md transition-shadow hover:scale-[1.02] duration-300 cursor-pointer border-border card-rainbow-active"
+                        onClick={() => { setActiveTab("achievements"); triggerRainbow('achievements'); }}
                     >
                         <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-muted-foreground">Achievements</CardTitle></CardHeader>
                         <CardContent className="text-4xl font-bold text-yellow-500">🏆 {profile?.achievementCount || 0}</CardContent>
@@ -450,21 +490,21 @@ const MemberDashboard = () => {
 
             {/* Main Content Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-                <TabsList className="w-full justify-start border-b border-border rounded-none bg-transparent h-12 p-0 space-x-6 overflow-x-auto">
-                    <TabsTrigger value="overview" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><Home className="w-4 h-4" /> Overview</TabsTrigger>
-                    <TabsTrigger value="projects" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><FolderPlus className="w-4 h-4" /> Projects</TabsTrigger>
-                    <TabsTrigger value="contributions" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><Activity className="w-4 h-4" /> Contributions</TabsTrigger>
-                    <TabsTrigger value="profile" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><User className="w-4 h-4" /> Profile</TabsTrigger>
-                    <TabsTrigger value="feedback" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><MessageSquare className="w-4 h-4" /> Feedback</TabsTrigger>
-                    <TabsTrigger value="achievements" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><Trophy className="w-4 h-4" /> Achievements</TabsTrigger>
-                    <TabsTrigger value="queries" className="flex gap-2 rounded-none border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:text-blue-500 data-[state=active]:bg-transparent px-4 py-3 text-muted-foreground hover:text-foreground transition-colors"><Code className="w-4 h-4" /> Support & Queries</TabsTrigger>
+                <TabsList className="w-full justify-start bg-transparent p-2 gap-3 flex-wrap h-auto">
+                    <TabsTrigger value="overview" className="curved-tab-trigger cursor-target flex gap-2"><Home className="w-4 h-4" /> Overview</TabsTrigger>
+                    <TabsTrigger value="projects" className="curved-tab-trigger cursor-target flex gap-2"><FolderPlus className="w-4 h-4" /> Projects</TabsTrigger>
+                    <TabsTrigger value="contributions" className="curved-tab-trigger cursor-target flex gap-2"><Activity className="w-4 h-4" /> Contributions</TabsTrigger>
+                    <TabsTrigger value="profile" className="curved-tab-trigger cursor-target flex gap-2"><User className="w-4 h-4" /> Profile</TabsTrigger>
+                    <TabsTrigger value="feedback" className="curved-tab-trigger cursor-target flex gap-2"><MessageSquare className="w-4 h-4" /> Feedback</TabsTrigger>
+                    <TabsTrigger value="achievements" className="curved-tab-trigger cursor-target flex gap-2"><Trophy className="w-4 h-4" /> Achievements</TabsTrigger>
+                    <TabsTrigger value="queries" className="curved-tab-trigger cursor-target flex gap-2"><Code className="w-4 h-4" /> Support & Queries</TabsTrigger>
                 </TabsList>
 
                 {/* Overview Tab */}
                 <TabsContent value="overview" className="space-y-6">
                     <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Chart */}
-                        <Card className="md:col-span-2">
+                            <Card className="neo-surface-3d ghost-card md:col-span-2 bg-slate-950/80 text-slate-100">
                             <CardHeader><CardTitle>Contribution Activity</CardTitle></CardHeader>
                             <CardContent className="h-[300px]">
                                 {contributions.length > 0 ? (
@@ -481,7 +521,7 @@ const MemberDashboard = () => {
                         </Card>
 
                         {/* Recent Activity */}
-                        <Card>
+                        <Card className="neo-surface-3d ghost-card bg-slate-950/80 text-slate-100">
                             <CardHeader><CardTitle>Recent Activity</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 {contributions.slice(0, 5).map((c: any) => (
@@ -500,7 +540,7 @@ const MemberDashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* New Project Form */}
                         <motion.div variants={itemVariants} className="md:col-span-1 h-fit sticky top-6">
-                            <Card>
+                            <Card className="neo-surface-3d ghost-card bg-slate-950/80 text-slate-100">
                                 <CardHeader>
                                     <CardTitle>Upload Project</CardTitle>
                                     <CardDescription>Share your latest work.</CardDescription>
@@ -512,7 +552,7 @@ const MemberDashboard = () => {
                                         <Input placeholder="GitHub Repo URL" value={newProject.repoLink} onChange={e => setNewProject({ ...newProject, repoLink: e.target.value })} required className="bg-secondary border-border focus-visible:ring-1 focus-visible:ring-blue-500 placeholder:text-muted-foreground text-foreground" />
                                         <Input placeholder="Live Demo URL" value={newProject.demoLink} onChange={e => setNewProject({ ...newProject, demoLink: e.target.value })} required className="bg-secondary border-border focus-visible:ring-1 focus-visible:ring-blue-500 placeholder:text-muted-foreground text-foreground" />
                                         <Input placeholder="LinkedIn Post Link (Optional)" value={newProject.linkedInPostLink} onChange={e => setNewProject({ ...newProject, linkedInPostLink: e.target.value })} className="bg-secondary border-border focus-visible:ring-1 focus-visible:ring-blue-500 placeholder:text-muted-foreground text-foreground" />
-                                        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transition-all">Submit Project</Button>
+                                        <Button type="submit" className="neo-button-3d w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg transition-all">Submit Project</Button>
                                     </form>
                                 </CardContent>
                             </Card>
@@ -529,7 +569,7 @@ const MemberDashboard = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
                                     >
-                                        <Card className="overflow-hidden transition-all hover:shadow-md border border-gray-100 group">
+                                        <Card className="neo-surface-3d ghost-card bg-slate-950/80 text-slate-100 overflow-hidden transition-all hover:shadow-md border border-slate-800 group">
                                             <div className={`h-2 w-full ${project.status === 'approved' ? 'bg-green-500' : project.status === 'rejected' ? 'bg-red-500' : 'bg-yellow-500'}`} />
                                             <CardContent className="p-6">
                                                 <div className="flex justify-between items-start mb-2">
@@ -577,7 +617,7 @@ const MemberDashboard = () => {
                 {/* Contributions Tab */}
                 <TabsContent value="contributions" className="space-y-6">
                     <motion.div variants={itemVariants}>
-                        <Card>
+                        <Card className="neo-surface-3d bg-slate-900/80 text-slate-100">
                             <CardHeader><CardTitle>Log Contribution</CardTitle></CardHeader>
                             <CardContent>
                                 <div className="flex flex-col md:flex-row gap-4">
@@ -588,7 +628,7 @@ const MemberDashboard = () => {
                                         onKeyDown={e => e.key === 'Enter' && handleContributionSubmit()}
                                         className="flex-1 bg-secondary border-border focus-visible:ring-1 focus-visible:ring-blue-500 placeholder:text-muted-foreground text-foreground font-mono"
                                     />
-                                    <Button onClick={handleContributionSubmit} className="bg-green-600 hover:bg-green-700 text-white min-w-[120px] shadow-md hover:shadow-lg">Log</Button>
+                                    <Button onClick={handleContributionSubmit} className="neo-button-3d bg-emerald-600 hover:bg-emerald-700 text-white min-w-[120px] shadow-md hover:shadow-lg">Log</Button>
                                 </div>
                             </CardContent>
                         </Card>
@@ -604,7 +644,7 @@ const MemberDashboard = () => {
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: index * 0.05 }}
-                                    className="p-4 bg-white border border-gray-100 rounded-lg shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-2 hover:bg-gray-50 transition-colors"
+                                    className="neo-surface-3d ghost-card bg-slate-950/80 text-slate-100 border border-slate-800 rounded-lg shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-2 hover:bg-slate-900/80 transition-colors"
                                 >
                                     <span className="text-gray-800 font-medium">{c.text || c.description}</span>
                                     <span className="text-xs text-gray-500 whitespace-nowrap">
@@ -625,10 +665,10 @@ const MemberDashboard = () => {
                 {/* Profile Tab */}
                 <TabsContent value="profile" className="space-y-6">
                     <motion.div variants={itemVariants}>
-                        <Card className="bg-card border-border">
+                        <Card className="neo-surface-3d bg-slate-900/80 text-slate-100 border-border">
                             <CardHeader className="flex flex-row justify-between items-center">
                                 <CardTitle className="text-foreground">Profile Details</CardTitle>
-                                <Button variant="outline" onClick={() => setIsEditingProfile(!isEditingProfile)} className="border-border text-foreground hover:bg-secondary">
+                                <Button variant="outline" onClick={() => setIsEditingProfile(!isEditingProfile)} className="neo-button-3d border-border text-slate-100 hover:bg-slate-800">
                                     {isEditingProfile ? "Cancel" : "Edit Profile"}
                                 </Button>
                             </CardHeader>
@@ -691,7 +731,7 @@ const MemberDashboard = () => {
                                                 <Input value={editProfileData.portfolio} onChange={e => setEditProfileData({ ...editProfileData, portfolio: e.target.value })} className="bg-secondary border-border text-foreground" />
                                             </div>
                                         </div>
-                                        <Button type="submit" disabled={uploadingPhoto} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                                        <Button type="submit" disabled={uploadingPhoto} className="neo-button-3d w-full bg-emerald-600 hover:bg-emerald-700 text-white">
                                             {uploadingPhoto ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                                             {uploadingPhoto ? "Uploading & Saving..." : "Save Changes"}
                                         </Button>
@@ -733,7 +773,7 @@ const MemberDashboard = () => {
                                                 <div className="flex flex-wrap gap-2">
                                                     {profile?.skills && profile.skills.length > 0 ? (
                                                         profile.skills.map((skill: string, i: number) => (
-                                                            <span key={i} className="px-2 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md text-sm">{skill}</span>
+                                                            <span key={i} className="px-2 py-1 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 rounded-md text-sm">{skill}</span>
                                                         ))
                                                     ) : <span className="text-sm text-muted-foreground">No skills listed.</span>}
                                                 </div>
@@ -757,7 +797,7 @@ const MemberDashboard = () => {
                 {/* Feedback Tab */}
                 <TabsContent value="feedback" className="space-y-6">
                     <motion.div variants={itemVariants}>
-                        <Card>
+                        <Card className="neo-surface-3d bg-slate-900/80 text-slate-100">
                             <CardHeader>
                                 <CardTitle>Submit Feedback</CardTitle>
                                 <CardDescription>Tell us about a bug, feature request, or general experience.</CardDescription>
@@ -796,7 +836,7 @@ const MemberDashboard = () => {
                                             required
                                         />
                                     </div>
-                                    <Button type="submit" className="shadow-md hover:shadow-lg">Send Feedback</Button>
+                                    <Button type="submit" className="neo-button-3d bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg">Send Feedback</Button>
                                 </form>
                             </CardContent>
                         </Card>
@@ -812,7 +852,9 @@ const MemberDashboard = () => {
                     <QueriesTab />
                 </TabsContent>
             </Tabs>
-        </motion.div>
+            </motion.div>
+        </div>
+        </ClickSpark>
     );
 };
 

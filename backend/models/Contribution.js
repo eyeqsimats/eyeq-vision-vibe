@@ -41,6 +41,19 @@ const Contribution = {
       throw error;
     }
     return data;
+  },
+
+  async delete(id) {
+    const { error } = await supabase
+      .from('contributions')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Supabase contribution delete error:', error);
+      throw error;
+    }
+    return true;
   }
 };
 
