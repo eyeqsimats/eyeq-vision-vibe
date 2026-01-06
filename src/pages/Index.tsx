@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import eyeqLogo from "@/assets/eyeq-logo.png";
 import presidentImg from "@/assets/team/president.jpg";
 import vicePresidentImg from "@/assets/team/vice-president.jpg";
+import secretaryImg from "@/assets/team/secretary.jpg";
 import Navbar from "@/components/Navbar";
 import { motion, Variants } from "framer-motion";
 import TeamMember from "@/components/TeamMember";
@@ -236,6 +237,14 @@ const Index = () => {
         "Leading with passion and purpose, I strive to create an environment where every idea is valued and every member feels empowered to push boundaries.",
       imageUrl: vicePresidentImg,
       linkedinUrl: "http://www.linkedin.com/in/sasvanthu-g",
+    },
+    {
+      name: "Harsh Limkar N",
+      role: "Secretary",
+      quote:
+        "Organization meets inspiration. My goal is to ensure our community runs smoothly while fostering meaningful connections and collaborative learning.",
+      imageUrl: secretaryImg,
+      linkedinUrl: "https://www.linkedin.com/in/harsh-limkar/",
     },
   ];
 
