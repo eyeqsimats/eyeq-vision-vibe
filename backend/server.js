@@ -49,6 +49,9 @@ app.get('/', (req, res) => {
   });
 });
 
+// Health Check Routes
+app.use('/health', require('./routes/healthRoutes'));
+
 // API Routes - Prefixed with /api
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
