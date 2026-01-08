@@ -1,126 +1,123 @@
-# EyeQ Club - Computer Vision Community at SIMATS
+# EyeQ Club — Computer Vision Community at SIMATS
 
-Welcome to the EyeQ Club website, a student-run Computer Vision club at Saveetha Institute of Medical and Technical Sciences (SIMATS).
+Welcome to the **official EyeQ Club website**, a student‑run Computer Vision community at **Saveetha Institute of Medical and Technical Sciences (SIMATS)**.
 
-## About EyeQ
+This repository contains the **production‑ready source code** for the EyeQ Club web platform, designed, developed, and deployed to serve as the digital hub for our community.
 
-EyeQ is a vibrant community where students come together to learn, create, and innovate in the field of Computer Vision. Our mission is to bridge the gap between academic learning and real-world tech skills through collaborative projects and hands-on coding sessions.
 
-### Our Motto
-**See. Code. Create.**
 
-## What Makes EyeQ Different?
+## 🌟 About EyeQ
 
-- **Anyone Can Teach One**: Every member is both a learner and a mentor
-- **No Skills Required**: Start your journey from zero with our supportive community
-- **Curiosity Over Competition**: We focus on exploration and innovation
-- **24/7 Energy Loop**: A community that's always active and always learning
+**EyeQ** is a collaborative learning community focused on **Computer Vision, AI, and applied software engineering**. We believe in learning by building, teaching by sharing, and growing together as technologists.
 
-## Tech Stack
+Our goal is to bridge the gap between:
 
-This project is built with modern web technologies:
+* Academic concepts 📚
+* Real‑world industry skills 🏭
+* Hands‑on project experience 🛠️
 
-- **React 18** - UI library
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Styling
-- **Framer Motion** - Animations
-- **Shadcn UI** - Component library
-- **React Scroll** - Smooth scrolling
+### 🎯 Motto
 
-## Getting Started
+> **See. Code. Create.**
 
-### Prerequisites
 
-- Node.js 18+ 
-- npm or pnpm or bun
+## 🚀 What Makes EyeQ Unique
 
-### Installation
+* **Anyone Can Teach One** — Every member is both a learner and a mentor
+* **Zero‑Barrier Entry** — No prior skills required to get started
+* **Curiosity > Competition** — We prioritize exploration and innovation
+* **Always‑On Community** — Learning, building, and sharing 24/7
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd eyeq-vision-vibe
-```
+---
 
-2. Install dependencies:
-```bash
-npm install
-```
+## 🧑‍💻 Tech Stack
 
-3. Start the development server:
-```bash
-npm run dev
-```
+This project uses a modern, scalable frontend stack:
 
-4. Open your browser and navigate to `http://localhost:5173` (Vite default) or the port shown in the terminal.
+### Frontend
 
-Note about authentication (development):
+* **React 18** — UI framework
+* **TypeScript** — Static typing & safety
+* **Vite** — Fast build tool & dev server
+* **Tailwind CSS** — Utility‑first styling
+* **Framer Motion** — Smooth animations
+* **shadcn/ui** — Accessible UI components
+* **React Scroll** — Smooth section navigation
 
-- The app normally requires Firebase authentication for member/admin areas. For faster local development you can skip auth — both the Member and Admin dashboards will load without signing in. Use the following paths:
+### Backend
 
-	- Member Dashboard: `http://localhost:5173/dashboard`
-	- Admin Dashboard: `http://localhost:5173/eyeqcontrol2k25`
+* **Node.js + Express** — REST API
+* **Supabase** — Database & Auth
+* **Firebase Auth** — Authentication provider
 
-These endpoints will fetch public data where available and allow submitting test projects/contributions. When you're ready to re-enable auth, revert the temporary bypasses in `src/pages/member/Dashboard.tsx` and `src/pages/admin/AdminDashboard.tsx`.
+## 🌐 Deployment
 
-## Available Scripts
+This project is **fully deployed and running in production**.
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+### 🔹 Live URLs
 
-## Project Structure
+* **Frontend (Netlify)**
+ 
 
-```
-src/
-├── components/     # React components
-│   ├── ui/        # Shadcn UI components
-│   └── *.tsx      # Custom components
-├── pages/         # Page components
-├── hooks/         # Custom React hooks
-├── lib/           # Utility functions
-└── assets/        # Static assets
-```
+* **Backend (Render)**
+  [https://eyeq-backend-lodl.onrender.com](https://eyeq-backend-lodl.onrender.com)
 
-## 🚀 Deployment & Production
+## ⚙️ Environment Configuration
 
-**Status**: ✅ Production Ready
+Environment variables must be configured in the respective deployment dashboards.
 
-For deployment to Vercel (Frontend) and Render (Backend), see:
+Refer to:
 
-- **[COMPLETE.md](COMPLETE.md)** - Full implementation summary
-- **[PRODUCTION_DEPLOYMENT_GUIDE.md](PRODUCTION_DEPLOYMENT_GUIDE.md)** - Complete deployment guide
-- **[ENV_SETUP.md](ENV_SETUP.md)** - Environment setup instructions
-- **[PRE_DEPLOYMENT_CHECKLIST.md](PRE_DEPLOYMENT_CHECKLIST.md)** - Checklist before deployment
-- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick lookup guide
+* `.env.example` (frontend)
+* `backend/.env.example` (backend)
 
-### Quick Start for Deployment
+### Required Platforms
 
-**Frontend (Vercel)**: https://eyeq-simats.vercel.app
-**Backend (Render)**: https://eyeq-backend-lodl.onrender.com
+* **Netlify** — Frontend hosting
+* **Render** — Backend hosting
+* **Supabase** — Database & storage
+* **Firebase** — Authentication
 
-Set environment variables in respective dashboards from `.env.example` and `backend/.env.example`
+---
 
-## Contact & Links
+## 🤝 Community & Links
 
-- **WhatsApp**: Join our [WhatsApp Group](https://chat.whatsapp.com/GxFFprWNX4d8mOQJOTz7d1)
-- **Projects**: View our [Project List](https://docs.google.com/spreadsheets/d/1EVvQ9yxCOn4SqQX_twvwdRS9951wn6fNcUI7PZdMxYQ/edit?usp=sharing)
-- **Instagram**: [@eyeq.simats](https://www.instagram.com/eyeq.simats/)
-- **LinkedIn**: [EyeQ SIMATS](https://www.linkedin.com/company/eyeq-simats/)
+* 💬 **WhatsApp Group**
+  [https://chat.whatsapp.com/GxFFprWNX4d8mOQJOTz7d1](https://chat.whatsapp.com/GxFFprWNX4d8mOQJOTz7d1)
 
-## Development Team
+* 📊 **Project Tracker**
+  [https://docs.google.com/spreadsheets/d/1EVvQ9yxCOn4SqQX_twvwdRS9951wn6fNcUI7PZdMxYQ/edit](https://docs.google.com/spreadsheets/d/1EVvQ9yxCOn4SqQX_twvwdRS9951wn6fNcUI7PZdMxYQ/edit)
 
-**President**: Aswath S  
-**Vice President**: Sasvanthu G  
-**Secretary**: Harsh Limkar N  
-**Treasurer**: Suvedhan G  
+* 📸 **Instagram**
+  [https://www.instagram.com/eyeq.simats/](https://www.instagram.com/eyeq.simats/)
 
-**Web Developer**: Gnana Priyan G
+* 💼 **LinkedIn**
+  [https://www.linkedin.com/company/eyeq-simats/](https://www.linkedin.com/company/eyeq-simats/)
 
-## License
+---
 
-This project is created and maintained by EyeQ Club for educational and community purposes.
+## 👥Leadership Team:
+
+* **President** — Aswath S
+* **Vice President** — Sasvanthu G
+* **Secretary** — Harsh Limkar N
+
+---
+## Development Team:
+* **Front End Development** - Suvedhan G, Harsh Limkar N
+* **Back End Development** - Sasvanthu G
+* **Deployment** - Sasvanthu G
+* **Assistance** - Sudharsan , Aswath S , Neha B
+## 📜 License
+
+This project is developed and maintained by **EyeQ Club, SIMATS** for educational and community purposes.
 
 © 2025 EyeQ Club. All rights reserved.
+
+---
+
+## ⭐ Acknowledgements
+
+Special thanks to all EyeQ members and contributors who continuously help build, teach, and grow the Computer Vision community at SIMATS.
+
+> *Built by students. Powered by curiosity.*
