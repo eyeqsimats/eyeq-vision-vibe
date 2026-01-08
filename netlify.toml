@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Local dev: netlify dev will use Vite's build
+[dev]
+  command = "npm run dev"
+  port = 8888
+  publish = "dist"
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Proxy API calls to the Render backend (update the target with your Render URL)
+[[redirects]]
+  from = "/api/*"
+  to = "https://eyeq-backend-lodl.onrender.com/api/:splat"
+  status = 200
+  force = true

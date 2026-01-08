@@ -15,12 +15,25 @@ require('./config/firebase');
 const app = express();
 
 // CORS Configuration - Production Safe
-const allowedOrigins = [
-  'https://eyeq-simats.vercel.app',
-  'http://localhost:3000',     // Local development
-  'http://localhost:5173',     // Vite dev server
-  'http://localhost:8080',     // Vite alternative port
+const defaultOrigins = [
+  'https://extraordinary-gaufre-521d2b.netlify.app', // Netlify frontend
+  'https://eyeq-backend-lodl.onrender.com',          // Render base (for server-to-server calls)
+  'https://eyeq-simats.vercel.app',                  // Legacy frontend
+  'http://localhost:3000',                           // Local development
+  'http://localhost:5173',                           // Vite dev server
+  'http://localhost:8080',                           // Vite alternative port
 ];
+
+// Allow supplying additional origins (comma-separated) via env
+const envOriginsRaw = process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || '';
+const envOrigins = envOriginsRaw
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const allowedOrigins = Array.from(new Set([...defaultOrigins, ...envOrigins]));
+
+console.log('🔒 CORS Allowed Origins:', allowedOrigins);
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -28,16 +41,21 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn('❌ CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  optionsSuccessStatus: 204,
+  preflightContinue: false,
 };
 
-// Middleware
+// CRITICAL: CORS middleware MUST be first, before any routes
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight for all routes
 app.use(express.json());
 
 // Health Check Route
