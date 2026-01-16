@@ -25,8 +25,8 @@ const Signup = () => {
             navigate('/dashboard');
         } catch (error: any) {
             toast({
-                title: "Signup Failed",
-                description: error.response?.data?.message || "Something went wrong",
+                title: "Signup Request sent to Admin",
+                description: error.response?.data?.message || "under review",
                 variant: "destructive",
             });
         }

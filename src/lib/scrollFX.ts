@@ -1,6 +1,4 @@
-/**
- * scrollFX - Professional scroll-based animations
- * Inspired by linkwaychennai.in: clean, subtle, crisp
+
  * 
  * @requires gsap, @studio-freight/lenis, split-type
  */
