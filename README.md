@@ -28,7 +28,6 @@ Our goal is to bridge the gap between:
 * **Curiosity > Competition** — We prioritize exploration and innovation
 * **Always‑On Community** — Learning, building, and sharing 24/7
 
----
 
 ## 🧑‍💻 Tech Stack
 
@@ -57,7 +56,7 @@ This project is **fully deployed and running in production**.
 ### 🔹 Live URLs
 
 * **Frontend (Netlify)**
- 
+ [https://eyeq-simats.netlify.app/](https://eyeq-simats.netlify.app/)
 
 * **Backend (Render)**
   [https://eyeq-backend-lodl.onrender.com](https://eyeq-backend-lodl.onrender.com)
@@ -104,10 +103,11 @@ Refer to:
 
 ---
 ## Development Team:
-* **Front End Development** - Suvedhan G, Harsh Limkar N
+* **Front End Development** - Suvedhan G, Harsh Limkar N, Sasvanthu G
 * **Back End Development** - Sasvanthu G
 * **Deployment** - Sasvanthu G
 * **Assistance** - Sudharsan , Aswath S , Neha B
+
 ## 📜 License
 
 This project is developed and maintained by **EyeQ Club, SIMATS** for educational and community purposes.
