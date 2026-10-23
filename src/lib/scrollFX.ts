@@ -1,4 +1,4 @@
-
+/**
  * 
  * @requires gsap, @studio-freight/lenis, split-type
  */
