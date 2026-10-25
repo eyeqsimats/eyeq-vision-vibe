@@ -33,7 +33,7 @@ export function GoogleGeminiEffectSection() {
   }, []);
 
   return (
-    <div className="relative py-40 bg-black w-full dark:border dark:border-white/[0.1] rounded-md overflow-hidden min-h-screen flex items-center justify-center">
+    <div className="relative py-16 md:py-24 bg-black w-full rounded-md overflow-hidden min-h-[480px] md:min-h-[520px] flex items-center justify-center">
       {/* Gemini Animation Background Layer */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <GoogleGeminiEffect
@@ -49,10 +49,10 @@ export function GoogleGeminiEffectSection() {
 
       {/* Content Layer */}
       <div className="relative z-10 flex flex-col items-center justify-center px-4">
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 text-center">
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 text-center">
           Ready to Join the Vibe?
         </h2>
-        <p className="text-lg md:text-xl text-neutral-300 mb-10 max-w-2xl text-center">
+        <p className="text-base md:text-lg text-neutral-300 mb-8 max-w-2xl text-center">
           Be part of a community that's shaping the future of computer vision
         </p>
         
@@ -60,7 +60,7 @@ export function GoogleGeminiEffectSection() {
           href="https://chat.whatsapp.com/GxFFprWNX4d8mOQJOTz7d1"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-8 py-4 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all hover:scale-105 inline-block text-center"
+          className="px-8 py-3.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary transition-all hover:scale-105 inline-block text-center shadow-lg hover:shadow-primary/30"
         >
           Join Now
         </a>

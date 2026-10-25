@@ -30,33 +30,33 @@ export const HeroParallax = ({
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, [0, 1], [0, 600]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, [0, 1], [0, -600]),
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    useTransform(scrollYProgress, [0, 0.4], [8, 0]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.25], [0.5, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    useTransform(scrollYProgress, [0, 0.4], [8, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.8], [0, 80]),
     springConfig
   );
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[125vh] md:h-[135vh] py-6 md:py-8 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -66,9 +66,9 @@ export const HeroParallax = ({
           translateY,
           opacity,
         }}
-        className=""
+        className="mt-6 md:mt-8 relative z-10"
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse space-x-12 md:space-x-16 mb-8 md:mb-12">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -77,7 +77,7 @@ export const HeroParallax = ({
             />
           ))}
         </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
+        <motion.div className="flex flex-row space-x-12 md:space-x-16">
           {secondRow.map((product) => (
             <ProductCard
               product={product}
@@ -93,11 +93,15 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        EyeQ Computer Vision <br /> Innovation Hub
-      </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+    <div className="max-w-6xl relative z-20 mx-auto pt-2 pb-6 md:pb-8 px-4 w-full left-0 top-0">
+      <div className="inline-flex items-center gap-2 px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full border border-primary/20">
+        Members Projects
+      </div>
+      <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+        EyeQ Computer Vision <br />
+        <span className="text-primary">Innovation Hub</span>
+      </h2>
+      <p className="max-w-2xl text-sm md:text-base mt-3 text-neutral-300">
         Empowering the next generation of computer vision engineers through hands-on projects,
         collaborative learning, and real-world applications.
       </p>
@@ -122,14 +126,14 @@ export const ProductCard = ({
         x: translate,
       }}
       whileHover={{
-        y: -20,
+        y: -15,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative shrink-0"
+      className="group/product h-72 w-[22rem] md:h-80 md:w-[26rem] relative shrink-0 rounded-xl overflow-hidden"
     >
       <a
         href={product.link}
-        className="block group-hover/product:shadow-2xl "
+        className="block group-hover/product:shadow-2xl h-full w-full"
       >
         <img
           src={product.thumbnail}
@@ -139,10 +143,10 @@ export const ProductCard = ({
           alt={product.title}
         />
       </a>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none transition-opacity duration-300"></div>
+      <h4 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white font-semibold text-lg transition-opacity duration-300">
         {product.title}
-      </h2>
+      </h4>
     </motion.div>
   );
 };

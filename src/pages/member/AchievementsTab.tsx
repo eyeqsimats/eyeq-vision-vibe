@@ -65,7 +65,7 @@ const AchievementsTab = () => {
                     </motion.div>
                 )) : (
                     <div className="col-span-full py-12 text-center text-muted-foreground space-y-4">
-                        <div className="bg-secondary/50 p-6 rounded-full w-fit mx-auto"><Trophy className="w-12 h-12 opacity-20" /></div>
+                        <div className="bg-secondary p-6 rounded-full w-fit mx-auto"><Trophy className="w-12 h-12 opacity-20" /></div>
                         <p>No achievements yet. Keep contributing to earn badges!</p>
                     </div>
                 )}

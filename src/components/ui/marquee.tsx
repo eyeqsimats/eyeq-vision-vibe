@@ -20,46 +20,30 @@ const Marquee = ({
   return (
     <div
       className={cn(
-        "relative flex w-full overflow-hidden",
+        "group/marquee relative flex w-full overflow-hidden [gap:var(--gap,1rem)]",
         className
       )}
       {...props}
     >
       <div
         className={cn(
-          "flex w-max animate-marquee [--duration:40s] [--gap:1rem]",
-          pauseOnHover && "group-hover:[--play-state:paused]",
-          reverse && "[--direction:reverse]",
-          fade && "[mask-image:linear-gradient(to_right,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
+          "flex w-max shrink-0 items-center justify-around [gap:var(--gap,1rem)] animate-marquee",
+          pauseOnHover && "group-hover/marquee:[animation-play-state:paused]",
+          reverse && "[animation-direction:reverse]"
         )}
       >
-        {React.Children.map(children, (child, index) => (
-          <div 
-            key={index} 
-            className="mx-2"
-          >
-            {child}
-          </div>
-        ))}
+        {children}
       </div>
       
       <div
         className={cn(
-          "flex w-max animate-marquee [--duration:40s] [--gap:1rem]",
-          pauseOnHover && "group-hover:[--play-state:paused]",
-          reverse && "[--direction:reverse]",
-          fade && "[mask-image:linear-gradient(to_right,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
+          "flex w-max shrink-0 items-center justify-around [gap:var(--gap,1rem)] animate-marquee",
+          pauseOnHover && "group-hover/marquee:[animation-play-state:paused]",
+          reverse && "[animation-direction:reverse]"
         )}
         aria-hidden="true"
       >
-        {React.Children.map(children, (child, index) => (
-          <div 
-            key={`duplicate-${index}`} 
-            className="mx-2"
-          >
-            {child}
-          </div>
-        ))}
+        {children}
       </div>
     </div>
   );

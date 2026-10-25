@@ -376,16 +376,16 @@ const AdminDashboard = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-slate-100 p-8 space-y-8 font-sans relative overflow-hidden">
             {/* Glassmorphism Background Gradient */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-500/5 rounded-full blur-3xl"></div>
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500 rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-500 rounded-full blur-3xl"></div>
             </div>
             <div className="relative z-10">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="neo-surface-3d flex flex-col md:flex-row justify-between items-start md:items-center bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-300"
+                className="neo-surface-3d flex flex-col md:flex-row justify-between items-start md:items-center bg-slate-800  p-6 rounded-3xl border border-slate-600 shadow-2xl hover:shadow-3xl hover:bg-slate-700 transition-all duration-300"
             >
                 <div>
                     <h1 className="text-5xl font-bold tracking-tight text-white drop-shadow-lg">
@@ -408,16 +408,16 @@ const AdminDashboard = () => {
                 <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <div className="text-right hidden md:block">
                         <p className="font-semibold text-sm text-slate-200">{profile?.name || 'Administrator'}</p>
-                        <Badge className="text-xs border border-purple-300/50 text-purple-200 bg-purple-400/20">Admin</Badge>
+                        <Badge className="text-xs border border-purple-300 text-purple-200 bg-purple-400">Admin</Badge>
                     </div>
                     <Button 
                         onClick={() => { fetchStats(); fetchUsers(); fetchProjects(); fetchFeedback(); }}
-                        className="neo-button-3d gap-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-300/50 font-semibold text-slate-100 hover:text-white transition-all"
+                        className="neo-button-3d gap-2 bg-blue-500 hover:bg-blue-500 border border-blue-300 font-semibold text-slate-100 hover:text-white transition-all"
                         title="Manual refresh (auto-refreshes every 3 seconds)"
                     >
                         🔄 Refresh Now
                     </Button>
-                    <Button onClick={handleLogout} className="neo-button-3d gap-2 bg-red-500/20 hover:bg-red-500/30 border border-red-300/50 font-semibold text-slate-100 hover:text-white transition-all">Exit</Button>
+                    <Button onClick={handleLogout} className="neo-button-3d gap-2 bg-red-500 hover:bg-red-500 border border-red-300 font-semibold text-slate-100 hover:text-white transition-all">Exit</Button>
                 </div>
             </motion.div>
             </div>
@@ -431,8 +431,8 @@ const AdminDashboard = () => {
                             value: stats.totalMembers, 
                             icon: Users, 
                             color: "text-blue-300", 
-                            bg: "bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-cyan-500/20",
-                            borderGlow: "border-blue-400/30 hover:border-blue-400/60",
+                            bg: "bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500",
+                            borderGlow: "border-blue-400 hover:border-blue-400/60",
                             onClick: () => setActiveTab('users')
                         },
                         { 
@@ -440,8 +440,8 @@ const AdminDashboard = () => {
                             value: stats.totalProjects, 
                             icon: LayoutDashboard, 
                             color: "text-purple-300", 
-                            bg: "bg-gradient-to-br from-purple-500/20 via-purple-600/10 to-pink-500/20",
-                            borderGlow: "border-purple-400/30 hover:border-purple-400/60",
+                            bg: "bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500",
+                            borderGlow: "border-purple-400 hover:border-purple-400/60",
                             onClick: () => setActiveTab('projects')
                         },
                         { 
@@ -449,8 +449,8 @@ const AdminDashboard = () => {
                             value: stats.dailyActiveUsers || 0, 
                             icon: Activity, 
                             color: "text-emerald-300", 
-                            bg: "bg-gradient-to-br from-emerald-500/20 via-green-600/10 to-teal-500/20",
-                            borderGlow: "border-emerald-400/30 hover:border-emerald-400/60",
+                            bg: "bg-gradient-to-br from-emerald-500 via-green-600 to-teal-500",
+                            borderGlow: "border-emerald-400 hover:border-emerald-400/60",
                             onClick: () => {
                                 const active = getActiveUsersToday();
                                 setActiveUsers(active);
@@ -462,8 +462,8 @@ const AdminDashboard = () => {
                             value: projects.filter((p: any) => p.status === 'pending').length, 
                             icon: CheckCircle, 
                             color: "text-amber-300", 
-                            bg: "bg-gradient-to-br from-amber-500/20 via-orange-600/10 to-yellow-500/20",
-                            borderGlow: "border-amber-400/30 hover:border-amber-400/60",
+                            bg: "bg-gradient-to-br from-amber-500 via-orange-600 to-yellow-500",
+                            borderGlow: "border-amber-400 hover:border-amber-400/60",
                             onClick: () => setActiveTab('projects')
                         },
                     ].map((stat, i) => (
@@ -475,7 +475,7 @@ const AdminDashboard = () => {
                             className="cursor-pointer"
                             onClick={stat.onClick}
                         >
-                            <Card className={`neo-surface-3d card-rainbow-active ${stat.bg} backdrop-blur-md border ${stat.borderGlow} shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300`}>
+                            <Card className={`neo-surface-3d card-rainbow-active ${stat.bg}  border ${stat.borderGlow} shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300`}>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-semibold text-slate-300">{stat.title}</CardTitle>
                                     <stat.icon className={`h-5 w-5 ${stat.color}`} />
@@ -490,21 +490,21 @@ const AdminDashboard = () => {
             )}
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 relative z-10">
-                <TabsList className="neo-surface-3d neo-tab-3d bg-white/10 p-1 h-auto overflow-x-auto border border-white/20 w-full justify-start rounded-xl backdrop-blur-md shadow-lg">
-                    <TabsTrigger value="overview" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-sky-500/40 data-[state=active]:to-blue-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-sky-300 transition-all rounded-lg">Overview</TabsTrigger>
-                    <TabsTrigger value="activity" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-violet-500/40 data-[state=active]:to-purple-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-violet-300 transition-all rounded-lg">Activity Feed</TabsTrigger>
-                    <TabsTrigger value="members" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/40 data-[state=active]:to-blue-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-cyan-300 transition-all rounded-lg">Members</TabsTrigger>
-                    <TabsTrigger value="queries" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-fuchsia-500/40 data-[state=active]:to-pink-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-fuchsia-300 transition-all rounded-lg">Member Queries</TabsTrigger>
-                    <TabsTrigger value="users" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500/40 data-[state=active]:to-purple-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-indigo-300 transition-all rounded-lg">Users</TabsTrigger>
-                    <TabsTrigger value="projects" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500/40 data-[state=active]:to-pink-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-rose-300 transition-all rounded-lg">Projects</TabsTrigger>
-                    <TabsTrigger value="contributions" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500/40 data-[state=active]:to-green-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-emerald-300 transition-all rounded-lg">Contributions</TabsTrigger>
-                    <TabsTrigger value="feedback" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500/40 data-[state=active]:to-orange-500/40 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-amber-300 transition-all rounded-lg">Feedback</TabsTrigger>
+                <TabsList className="neo-surface-3d neo-tab-3d bg-slate-800 p-1 h-auto overflow-x-auto border border-slate-600 w-full justify-start rounded-xl  shadow-lg">
+                    <TabsTrigger value="overview" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-sky-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-sky-300 transition-all rounded-lg">Overview</TabsTrigger>
+                    <TabsTrigger value="activity" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-violet-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-violet-300 transition-all rounded-lg">Activity Feed</TabsTrigger>
+                    <TabsTrigger value="members" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-cyan-300 transition-all rounded-lg">Members</TabsTrigger>
+                    <TabsTrigger value="queries" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-fuchsia-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-fuchsia-300 transition-all rounded-lg">Member Queries</TabsTrigger>
+                    <TabsTrigger value="users" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-indigo-500 data-[state=active]:to-purple-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-indigo-300 transition-all rounded-lg">Users</TabsTrigger>
+                    <TabsTrigger value="projects" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-rose-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-rose-300 transition-all rounded-lg">Projects</TabsTrigger>
+                    <TabsTrigger value="contributions" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-green-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-emerald-300 transition-all rounded-lg">Contributions</TabsTrigger>
+                    <TabsTrigger value="feedback" className="px-6 py-2 font-medium tracking-wider data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg text-slate-300 hover:text-amber-300 transition-all rounded-lg">Feedback</TabsTrigger>
                 </TabsList>
 
                 {/* Overview Tab */}
-                <TabsContent value="overview" className="space-y-4 relative p-6 rounded-2xl bg-gradient-to-br from-sky-500/20 via-blue-500/15 to-indigo-500/20 border border-sky-400/40">
+                <TabsContent value="overview" className="space-y-4 relative p-6 rounded-2xl bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-500 border border-sky-400">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card className="neo-surface-3d bg-gradient-to-br from-sky-500/30 via-blue-500/20 to-indigo-500/30 backdrop-blur-md border border-sky-400/50 hover:border-sky-400/70 shadow-lg hover:shadow-xl transition-all">
+                        <Card className="neo-surface-3d bg-gradient-to-br from-sky-500 via-blue-500 to-indigo-500  border border-sky-400 hover:border-sky-400/70 shadow-lg hover:shadow-xl transition-all">
                             <CardHeader><CardTitle className="flex items-center gap-2 text-slate-100 font-semibold tracking-wider"><Megaphone className="w-5 h-5 text-blue-300" /> Make Announcement</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
@@ -513,10 +513,10 @@ const AdminDashboard = () => {
                                         placeholder="Enter global announcement..."
                                         value={announcementMsg}
                                         onChange={e => setAnnouncementMsg(e.target.value)}
-                                        className="bg-white/10 border border-white/20 text-slate-100 placeholder:text-slate-400 focus:border-white/40 focus:shadow-lg focus:bg-white/15 transition-all rounded"
+                                        className="bg-slate-800 border border-slate-600 text-slate-100 placeholder:text-slate-400 focus:border-white focus:shadow-lg focus:bg-white transition-all rounded"
                                     />
                                 </div>
-                                <Button onClick={handleBroadcast} className="neo-button-3d w-full bg-blue-500/20 hover:bg-blue-500/30 border border-blue-300/50 text-blue-100 font-semibold tracking-wider shadow-lg hover:shadow-xl transition-all">📢 Broadcast to All Users</Button>
+                                <Button onClick={handleBroadcast} className="neo-button-3d w-full bg-blue-500 hover:bg-blue-500 border border-blue-300 text-blue-100 font-semibold tracking-wider shadow-lg hover:shadow-xl transition-all">📢 Broadcast to All Users</Button>
                             </CardContent>
                         </Card>
 
@@ -525,13 +525,13 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Activity Feed Tab */}
-                <TabsContent value="activity" className="relative p-6 rounded-2xl bg-gradient-to-br from-violet-500/20 via-purple-500/15 to-fuchsia-500/20 border border-violet-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-violet-500/30 via-purple-500/20 to-fuchsia-500/30 backdrop-blur-md border border-violet-400/50 hover:border-violet-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="activity" className="relative p-6 rounded-2xl bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 border border-violet-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500  border border-violet-400 hover:border-violet-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader><CardTitle className="text-slate-100 flex items-center gap-2 font-semibold tracking-wider"><Activity className="w-5 h-5 text-violet-300" /> Live Activity Feed</CardTitle><CardDescription className="text-slate-400">Recent member activities - projects, contributions, and feedback</CardDescription></CardHeader>
                         <CardContent>
                             <div className="space-y-3 max-h-[60vh] overflow-y-auto">
                                 {activities.length > 0 ? activities.slice(0, 50).map((activity: any, i: number) => (
-                                    <div key={i} className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-start gap-3 hover:bg-white/10 transition-all text-sm">
+                                    <div key={i} className="p-3 rounded-lg bg-slate-800 border border-slate-700 flex items-start gap-3 hover:bg-slate-800 transition-all text-sm">
                                         <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${activity.type === 'project' ? 'bg-blue-400' : activity.type === 'contribution' ? 'bg-emerald-400' : 'bg-amber-400'}`}></div>
                                         <div className="flex-1 min-w-0">
                                             <div className="font-medium text-slate-100">{activity.userName || 'Unknown'}</div>
@@ -540,7 +540,7 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="text-slate-500 text-xs mt-1">{new Date(activity.timestamp).toLocaleString()}</div>
                                         </div>
-                                        <Badge className={`text-xs flex-shrink-0 ${activity.type === 'project' ? 'bg-blue-500/20 text-blue-300 border-blue-400/50' : activity.type === 'contribution' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/50' : 'bg-amber-500/20 text-amber-300 border-amber-400/50'}`}>{activity.type}</Badge>
+                                        <Badge className={`text-xs flex-shrink-0 ${activity.type === 'project' ? 'bg-blue-500 text-blue-300 border-blue-400' : activity.type === 'contribution' ? 'bg-emerald-500 text-emerald-300 border-emerald-400' : 'bg-amber-500 text-amber-300 border-amber-400'}`}>{activity.type}</Badge>
                                     </div>
                                 )) : (
                                     <div className="text-center py-10 text-slate-500">
@@ -554,8 +554,8 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Members Tab */}
-                <TabsContent value="members" className="relative p-6 rounded-2xl bg-gradient-to-br from-cyan-500/20 via-blue-500/15 to-indigo-500/20 border border-cyan-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-cyan-500/30 via-blue-500/20 to-indigo-500/30 backdrop-blur-md border border-cyan-400/50 hover:border-cyan-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="members" className="relative p-6 rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-500 border border-cyan-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-500  border border-cyan-400 hover:border-cyan-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader>
                             <CardTitle className="text-slate-100 flex items-center gap-2">
                                 <Users className="w-5 h-5 text-blue-300" /> Member Overview
@@ -568,12 +568,12 @@ const AdminDashboard = () => {
                                     placeholder="Search members by name or email..."
                                     value={searchQuery}
                                     onChange={e => setSearchQuery(e.target.value)}
-                                    className="bg-white/10 border border-white/20 text-slate-100 placeholder:text-slate-400"
+                                    className="bg-slate-800 border border-slate-600 text-slate-100 placeholder:text-slate-400"
                                 />
                             </div>
                             <Table>
                                 <TableHeader>
-                                    <TableRow className="border-white/10 hover:bg-white/5">
+                                    <TableRow className="border-slate-700 hover:bg-slate-800">
                                         <TableHead className="text-slate-300">Member</TableHead>
                                         <TableHead className="text-slate-300">Email</TableHead>
                                         <TableHead className="text-slate-300">Projects</TableHead>
@@ -587,7 +587,7 @@ const AdminDashboard = () => {
                                     {users.filter((u: any) => 
                                         !searchQuery || u.name?.toLowerCase().includes(searchQuery.toLowerCase()) || u.email?.toLowerCase().includes(searchQuery.toLowerCase())
                                     ).map((u: any) => (
-                                        <TableRow key={u.uid || u.id} className="border-white/10 hover:bg-white/5">
+                                        <TableRow key={u.uid || u.id} className="border-slate-700 hover:bg-slate-800">
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
                                                     {u.photoURL && <img src={u.photoURL} alt={u.name} className="w-6 h-6 rounded-full object-cover" />}
@@ -600,7 +600,7 @@ const AdminDashboard = () => {
                                             <TableCell className="font-mono text-slate-300">{u.feedbackCount || 0}</TableCell>
                                             <TableCell className="font-bold text-slate-100">{u.totalActivity || 0}</TableCell>
                                             <TableCell className="text-right">
-                                                <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500/10 text-xs" onClick={() => fetchMemberDetails(u.uid || u.id)}>View</Button>
+                                                <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500 text-xs" onClick={() => fetchMemberDetails(u.uid || u.id)}>View</Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -618,7 +618,7 @@ const AdminDashboard = () => {
 
                     {/* Member Details Modal */}
                     {memberDetails && (
-                        <Card className="neo-surface-3d bg-white/10 backdrop-blur-md border border-white/20 shadow-lg mt-6">
+                        <Card className="neo-surface-3d bg-slate-800  border border-slate-600 shadow-lg mt-6">
                             <CardHeader className="flex flex-row justify-between items-start">
                                 <div>
                                     <CardTitle className="text-slate-100 flex items-center gap-2">
@@ -630,19 +630,19 @@ const AdminDashboard = () => {
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+                                    <div className="p-3 bg-slate-800 rounded-lg border border-slate-700">
                                         <div className="text-xs text-slate-400 mb-1">Email</div>
                                         <div className="text-sm font-semibold text-slate-100">{memberDetails.email}</div>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+                                    <div className="p-3 bg-slate-800 rounded-lg border border-slate-700">
                                         <div className="text-xs text-slate-400 mb-1">Projects</div>
                                         <div className="text-2xl font-bold text-blue-400">{memberDetails.projectCount || 0}</div>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+                                    <div className="p-3 bg-slate-800 rounded-lg border border-slate-700">
                                         <div className="text-xs text-slate-400 mb-1">Contributions</div>
                                         <div className="text-2xl font-bold text-emerald-400">{memberDetails.contributionCount || 0}</div>
                                     </div>
-                                    <div className="p-3 bg-white/5 rounded-lg border border-white/10">
+                                    <div className="p-3 bg-slate-800 rounded-lg border border-slate-700">
                                         <div className="text-xs text-slate-400 mb-1">Feedback</div>
                                         <div className="text-2xl font-bold text-amber-400">{memberDetails.feedbackCount || 0}</div>
                                     </div>
@@ -652,7 +652,7 @@ const AdminDashboard = () => {
                                         <h4 className="text-slate-100 font-semibold mb-2">Recent Projects</h4>
                                         <div className="space-y-2">
                                             {memberDetails.projects.map((p: any) => (
-                                                <div key={p.id} className="p-2 bg-white/5 rounded border border-white/10 text-sm">
+                                                <div key={p.id} className="p-2 bg-slate-800 rounded border border-slate-700 text-sm">
                                                     <div className="font-semibold text-slate-100">{p.title}</div>
                                                     <div className="text-xs text-slate-400">{new Date(p.createdat).toLocaleDateString()}</div>
                                                 </div>
@@ -666,18 +666,18 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Queries Tab (Replaces Analytics) */}
-                <TabsContent value="queries" className="relative p-6 rounded-2xl bg-gradient-to-br from-fuchsia-500/20 via-pink-500/15 to-purple-500/20 border border-fuchsia-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-fuchsia-500/30 via-pink-500/20 to-purple-500/30 backdrop-blur-md border border-fuchsia-400/50 hover:border-fuchsia-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="queries" className="relative p-6 rounded-2xl bg-gradient-to-br from-fuchsia-500 via-pink-500 to-purple-500 border border-fuchsia-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-fuchsia-500 via-pink-500 to-purple-500  border border-fuchsia-400 hover:border-fuchsia-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader>
                             <div className="flex justify-between items-start">
                                 <div>
                                     <CardTitle className="text-slate-100 flex items-center gap-2 font-semibold tracking-wider">
                                         <MessageSquare className="w-5 h-5 text-purple-300" /> Member Queries
-                                        <Badge className="ml-2 bg-purple-500/20 text-purple-300 border-purple-400/50">{queries.length} Total</Badge>
+                                        <Badge className="ml-2 bg-purple-500 text-purple-300 border-purple-400">{queries.length} Total</Badge>
                                     </CardTitle>
                                     <CardDescription className="text-slate-400">Answer questions from members.</CardDescription>
                                 </div>
-                                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 animate-pulse">
+                                <Badge variant="outline" className="bg-emerald-500 text-emerald-400 border-emerald-500 animate-pulse">
                                     <Signal className="w-3 h-3 mr-1" /> LIVE
                                 </Badge>
                             </div>
@@ -685,23 +685,23 @@ const AdminDashboard = () => {
                         <CardContent>
                             <div className="space-y-4">
                                 {queries.length > 0 ? queries.map((q: any) => (
-                                    <div key={q.id || q._id} className="p-4 rounded-lg bg-white/5 border border-white/10 flex flex-col gap-2 hover:bg-white/10 hover:border-white/20 transition-all">
+                                    <div key={q.id || q._id} className="p-4 rounded-lg bg-slate-800 border border-slate-700 flex flex-col gap-2 hover:bg-slate-800 hover:border-slate-600 transition-all">
                                         <div className="flex justify-between items-start">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <span className="text-xs text-slate-400 font-mono">{new Date(q.createdat || q.createdAt).toLocaleDateString()}</span>
-                                                    {q.resolved ? <Badge className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 font-medium">✓ RESPONDED</Badge> : <Badge className="bg-amber-500/20 text-amber-300 border border-amber-400/50 font-medium">⏳ PENDING</Badge>}
+                                                    {q.resolved ? <Badge className="bg-emerald-500 text-emerald-300 border border-emerald-400 font-medium">✓ RESPONDED</Badge> : <Badge className="bg-amber-500 text-amber-300 border border-amber-400 font-medium">⏳ PENDING</Badge>}
                                                 </div>
                                                 <div className="font-semibold text-slate-100">{q.userName || 'Unknown User'} <span className="text-xs font-normal text-slate-400">({q.userEmail || 'No email'})</span></div>
-                                                <p className="text-sm mt-2 font-medium text-slate-200 bg-white/5 p-3 rounded-md border border-white/10">{q.message}</p>
+                                                <p className="text-sm mt-2 font-medium text-slate-200 bg-slate-800 p-3 rounded-md border border-slate-700">{q.message}</p>
                                                 {q.rating && (
                                                     <div className="mt-2 flex items-center gap-1 text-sm text-amber-400 font-medium">
                                                         <Star className="w-4 h-4 fill-current" />
-                                                        <span>{q.rating}/5</span>
+                                                        <span>{q.rating}</span>
                                                     </div>
                                                 )}
                                                 {q.reply && (
-                                                    <div className="mt-2 pl-4 border-l-2 border-blue-300/50 text-sm text-slate-300">
+                                                    <div className="mt-2 pl-4 border-l-2 border-blue-300 text-sm text-slate-300">
                                                         <span className="font-semibold text-blue-300 text-xs block mb-1">Your Reply:</span>
                                                         {q.reply}
                                                     </div>
@@ -713,32 +713,32 @@ const AdminDashboard = () => {
                                                         type="checkbox"
                                                         checked={q.resolved || false}
                                                         onChange={() => handleToggleResolved(q.id || q._id, q.resolved)}
-                                                        className="w-4 h-4 rounded border-white/20 bg-white/10 text-emerald-500 focus:ring-emerald-500/50"
+                                                        className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-emerald-500 focus:ring-emerald-500"
                                                     />
                                                     <span className="text-xs text-slate-400">Resolved</span>
                                                 </label>
                                                 {!q.resolved && (
                                                     <Dialog>
                                                         <DialogTrigger asChild>
-                                                            <Button size="sm" onClick={() => setReplyingFeedback(q)} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Reply</Button>
+                                                            <Button size="sm" onClick={() => setReplyingFeedback(q)} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Reply</Button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="bg-white/10 backdrop-blur-md text-slate-100 border border-white/20">
+                                                        <DialogContent className="bg-slate-800  text-slate-100 border border-slate-600">
                                                             <DialogHeader><DialogTitle className="text-slate-100">Reply to {q.userName}</DialogTitle></DialogHeader>
                                                             <div className="py-4">
                                                                 <p className="text-sm text-slate-400 mb-2 italic">"{q.message}"</p>
                                                                 <textarea
-                                                                    className="w-full p-2 border rounded-md bg-white/10 border-white/20 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300/50"
+                                                                    className="w-full p-2 border rounded-md bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300"
                                                                     rows={4}
                                                                     placeholder="Type your answer here..."
                                                                     value={replyText}
                                                                     onChange={e => setReplyText(e.target.value)}
                                                                 />
                                                             </div>
-                                                            <DialogFooter><Button onClick={handleReply} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Send Response</Button></DialogFooter>
+                                                            <DialogFooter><Button onClick={handleReply} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Send Response</Button></DialogFooter>
                                                         </DialogContent>
                                                     </Dialog>
                                                 )}
-                                                <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500/30 hover:bg-red-500/40 border border-red-300/50" onClick={() => handleDeleteFeedback(q.id || q._id)}>Delete</Button>
+                                                <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500 hover:bg-red-500 border border-red-300" onClick={() => handleDeleteFeedback(q.id || q._id)}>Delete</Button>
                                             </div>
                                         </div>
                                     </div>
@@ -754,8 +754,8 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Users Tab */}
-                <TabsContent value="users" className="relative p-6 rounded-2xl bg-gradient-to-br from-indigo-500/20 via-purple-500/15 to-pink-500/20 border border-indigo-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-indigo-500/30 via-purple-500/20 to-pink-500/30 backdrop-blur-md border border-indigo-400/50 hover:border-indigo-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="users" className="relative p-6 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 border border-indigo-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500  border border-indigo-400 hover:border-indigo-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader>
                             <div className="flex justify-between items-center">
                                 <div>
@@ -764,7 +764,7 @@ const AdminDashboard = () => {
                                 </div>
                                 {activeUsers.length > 0 && (
                                     <div className="flex items-center gap-2">
-                                        <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-400/50">
+                                        <Badge className="bg-emerald-500 text-emerald-300 border-emerald-400">
                                             <Activity className="w-3 h-3 mr-1" />
                                             Showing {activeUsers.length} Active Today
                                         </Badge>
@@ -778,7 +778,7 @@ const AdminDashboard = () => {
                         <CardContent>
                             <Table>
                                 <TableHeader>
-                                    <TableRow className="border-white/10 hover:bg-white/5">
+                                    <TableRow className="border-slate-700 hover:bg-slate-800">
                                         <TableHead className="text-slate-300">User Details</TableHead>
                                         <TableHead className="text-slate-300">Role</TableHead>
                                         <TableHead className="text-slate-300">Streak (Cur/Best)</TableHead>
@@ -788,20 +788,20 @@ const AdminDashboard = () => {
                                 </TableHeader>
                                 <TableBody>
                                     {(activeUsers.length > 0 ? activeUsers : users).map((u: any) => (
-                                        <TableRow key={u.uid || u.id} className="border-white/10 hover:bg-white/5">
+                                        <TableRow key={u.uid || u.id} className="border-slate-700 hover:bg-slate-800">
                                             <TableCell>
                                                 <div className="font-semibold text-slate-100">{u.name}</div>
                                                 <div className="text-xs text-slate-400">{u.email}</div>
                                             </TableCell>
-                                            <TableCell><Badge variant="outline" className="border-white/20 text-slate-300 bg-white/10">{u.role}</Badge></TableCell>
+                                            <TableCell><Badge variant="outline" className="border-slate-600 text-slate-300 bg-slate-800">{u.role}</Badge></TableCell>
                                             <TableCell className="font-mono text-sm text-slate-300">{u.stats?.currentStreak || 0} / {u.stats?.longestStreak || 0}</TableCell>
                                             <TableCell className="text-sm text-slate-300">{u.achievementCount || 0} <Trophy className="w-4 h-4 text-amber-400 inline-block ml-1" /></TableCell>
                                             <TableCell className="text-right space-x-2">
                                                 <Dialog>
                                                     <DialogTrigger asChild>
-                                                        <Button size="sm" variant="outline" className="border-white/20 bg-white/10 text-slate-300 hover:bg-white/20" onClick={() => setEditingUser(u)}><Edit className="w-3 h-3 mr-1" /> Edit</Button>
+                                                        <Button size="sm" variant="outline" className="border-slate-600 bg-slate-800 text-slate-300 hover:bg-slate-700" onClick={() => setEditingUser(u)}><Edit className="w-3 h-3 mr-1" /> Edit</Button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="sm:max-w-[425px] bg-white/10 backdrop-blur-md text-slate-100 border border-white/20">
+                                                    <DialogContent className="sm:max-w-[425px] bg-slate-800  text-slate-100 border border-slate-600">
                                                         <DialogHeader>
                                                             <DialogTitle className="text-slate-100">Edit User Profile</DialogTitle>
                                                             <DialogDescription className="text-slate-400">Make changes to user profile and stats here.</DialogDescription>
@@ -810,37 +810,37 @@ const AdminDashboard = () => {
                                                             <div className="grid gap-4 py-4">
                                                                 <div className="space-y-2">
                                                                     <Label className="text-slate-300">Full Name</Label>
-                                                                    <Input value={editingUser.name} onChange={e => setEditingUser({ ...editingUser, name: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100 placeholder:text-slate-400" />
+                                                                    <Input value={editingUser.name} onChange={e => setEditingUser({ ...editingUser, name: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100 placeholder:text-slate-400" />
                                                                 </div>
                                                                 <div className="grid grid-cols-2 gap-4">
                                                                     <div className="space-y-2">
                                                                         <Label className="text-slate-300">Current Streak</Label>
-                                                                        <Input type="number" value={editingUser.stats?.currentStreak || 0} onChange={e => setEditingUser({ ...editingUser, stats: { ...editingUser.stats, currentStreak: e.target.value } })} className="bg-white/10 border border-white/20 text-slate-100" />
+                                                                        <Input type="number" value={editingUser.stats?.currentStreak || 0} onChange={e => setEditingUser({ ...editingUser, stats: { ...editingUser.stats, currentStreak: e.target.value } })} className="bg-slate-800 border border-slate-600 text-slate-100" />
                                                                     </div>
                                                                     <div className="space-y-2">
                                                                         <Label className="text-slate-300">Longest Streak</Label>
-                                                                        <Input type="number" value={editingUser.stats?.longestStreak || 0} onChange={e => setEditingUser({ ...editingUser, stats: { ...editingUser.stats, longestStreak: e.target.value } })} className="bg-white/10 border border-white/20 text-slate-100" />
+                                                                        <Input type="number" value={editingUser.stats?.longestStreak || 0} onChange={e => setEditingUser({ ...editingUser, stats: { ...editingUser.stats, longestStreak: e.target.value } })} className="bg-slate-800 border border-slate-600 text-slate-100" />
                                                                     </div>
                                                                 </div>
                                                                 <div className="space-y-2">
                                                                     <Label className="text-slate-300">Achievement Count</Label>
-                                                                    <Input type="number" min="0" value={editingUser.achievementCount || 0} onChange={e => setEditingUser({ ...editingUser, achievementCount: parseInt(e.target.value) })} className="bg-white/10 border border-white/20 text-slate-100" />
+                                                                    <Input type="number" min="0" value={editingUser.achievementCount || 0} onChange={e => setEditingUser({ ...editingUser, achievementCount: parseInt(e.target.value) })} className="bg-slate-800 border border-slate-600 text-slate-100" />
                                                                 </div>
                                                                 <div className="space-y-2">
                                                                     <Label className="text-slate-300">Skills (comma separated)</Label>
-                                                                    <Input value={editingUser.skills ? (Array.isArray(editingUser.skills) ? editingUser.skills.join(', ') : editingUser.skills) : ''} onChange={e => setEditingUser({ ...editingUser, skills: e.target.value.split(',') })} className="bg-white/10 border border-white/20 text-slate-100" />
+                                                                    <Input value={editingUser.skills ? (Array.isArray(editingUser.skills) ? editingUser.skills.join(', ') : editingUser.skills) : ''} onChange={e => setEditingUser({ ...editingUser, skills: e.target.value.split(',') })} className="bg-slate-800 border border-slate-600 text-slate-100" />
                                                                 </div>
                                                             </div>
                                                         )}
                                                         <DialogFooter>
-                                                            <Button onClick={handleUpdateUser} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Save changes</Button>
+                                                            <Button onClick={handleUpdateUser} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Save changes</Button>
                                                         </DialogFooter>
                                                     </DialogContent>
                                                 </Dialog>
 
                                                 <Dialog>
                                                     <DialogTrigger asChild>
-                                                        <Button size="sm" variant="outline" className="text-amber-400 border-amber-400/20 bg-amber-400/5 hover:bg-amber-400/10" onClick={() => setAwardingUser(u)}>
+                                                        <Button size="sm" variant="outline" className="text-amber-400 border-amber-400 bg-amber-400 hover:bg-amber-400" onClick={() => setAwardingUser(u)}>
                                                             <Trophy className="w-3 h-3 mr-1" /> Award
                                                         </Button>
                                                     </DialogTrigger>
@@ -873,7 +873,7 @@ const AdminDashboard = () => {
                                                     </DialogContent>
                                                 </Dialog>
 
-                                                <Button size="sm" variant="destructive" onClick={() => handleDeleteUser(u.uid || u.id)} className="bg-red-900/20 hover:bg-red-900/40 text-red-500 border border-red-900/50"><Trash2 className="w-3 h-3" /></Button>
+                                                <Button size="sm" variant="destructive" onClick={() => handleDeleteUser(u.uid || u.id)} className="bg-red-900 hover:bg-red-900 text-red-500 border border-red-900"><Trash2 className="w-3 h-3" /></Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -893,16 +893,16 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Projects Tab */}
-                <TabsContent value="projects" className="relative p-6 rounded-2xl bg-gradient-to-br from-rose-500/20 via-pink-500/15 to-red-500/20 border border-rose-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-rose-500/30 via-pink-500/20 to-red-500/30 backdrop-blur-md border border-rose-400/50 hover:border-rose-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="projects" className="relative p-6 rounded-2xl bg-gradient-to-br from-rose-500 via-pink-500 to-red-500 border border-rose-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-rose-500 via-pink-500 to-red-500  border border-rose-400 hover:border-rose-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader className="flex flex-row items-center justify-between">
                             <CardTitle className="text-slate-100">Project Master List</CardTitle>
-                            <div className="flex bg-white/10 p-1 rounded-lg border border-white/20">
+                            <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-600">
                                 {['all', 'pending', 'approved', 'rejected'].map(s => (
                                     <button
                                         key={s}
                                         onClick={() => setFilterStatus(s)}
-                                        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${filterStatus === s ? 'bg-white/20 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
+                                        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${filterStatus === s ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
                                     >
                                         {s.toUpperCase()}
                                     </button>
@@ -912,7 +912,7 @@ const AdminDashboard = () => {
                         <CardContent>
                             <Table>
                                 <TableHeader>
-                                    <TableRow className="border-white/10 hover:bg-white/5">
+                                    <TableRow className="border-slate-700 hover:bg-slate-800">
                                         <TableHead className="text-slate-300">Author</TableHead>
                                         <TableHead className="text-slate-300">Project Details</TableHead>
                                         <TableHead className="text-slate-300">Links</TableHead>
@@ -922,7 +922,7 @@ const AdminDashboard = () => {
                                 </TableHeader>
                                 <TableBody>
                                     {filteredProjects.map((p: any) => (
-                                        <TableRow key={p.id} className="border-white/10 hover:bg-white/5">
+                                        <TableRow key={p.id} className="border-slate-700 hover:bg-slate-800">
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
                                                     {p.authorPhoto && <img src={p.authorPhoto} alt={p.authorName} className="w-8 h-8 rounded-full object-cover" />}
@@ -945,7 +945,7 @@ const AdminDashboard = () => {
                                             <TableCell>
                                                 <Badge
                                                     variant={p.status === 'approved' ? 'default' : p.status === 'rejected' ? 'destructive' : 'secondary'}
-                                                    className={`${p.status === 'pending' ? 'bg-amber-500/20 text-amber-400 border-amber-400/50' : ''} ${p.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-400/50' : ''} ${p.status === 'rejected' ? 'bg-red-500/20 text-red-400 border-red-400/50' : ''}`}
+                                                    className={`${p.status === 'pending' ? 'bg-amber-500 text-amber-400 border-amber-400' : ''} ${p.status === 'approved' ? 'bg-emerald-500 text-emerald-400 border-emerald-400' : ''} ${p.status === 'rejected' ? 'bg-red-500 text-red-400 border-red-400' : ''}`}
                                                 >
                                                     {p.status?.toUpperCase()}
                                                 </Badge>
@@ -953,28 +953,28 @@ const AdminDashboard = () => {
                                             <TableCell className="text-right space-x-2">
                                                 <Dialog>
                                                     <DialogTrigger asChild>
-                                                        <Button size="icon" variant="ghost" onClick={() => setEditingProject(p)} className="text-slate-400 hover:text-slate-100 hover:bg-white/10"><Edit className="w-4 h-4" /></Button>
+                                                        <Button size="icon" variant="ghost" onClick={() => setEditingProject(p)} className="text-slate-400 hover:text-slate-100 hover:bg-slate-800"><Edit className="w-4 h-4" /></Button>
                                                     </DialogTrigger>
-                                                    <DialogContent className="sm:max-w-[500px] bg-white/10 backdrop-blur-md text-slate-100 border border-white/20 max-h-[90vh] overflow-y-auto">
+                                                    <DialogContent className="sm:max-w-[500px] bg-slate-800  text-slate-100 border border-slate-600 max-h-[90vh] overflow-y-auto">
                                                         <DialogHeader>
                                                             <DialogTitle className="text-slate-100">Edit Project</DialogTitle>
                                                             <DialogDescription className="text-slate-400">By {p.authorName}</DialogDescription>
                                                         </DialogHeader>
                                                         {editingProject && (
                                                             <div className="grid gap-4 py-4">
-                                                                <div className="space-y-2"><Label className="text-slate-300">Title</Label><Input value={editingProject.title} onChange={e => setEditingProject({ ...editingProject, title: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100" /></div>
-                                                                <div className="space-y-2"><Label className="text-slate-300">Description</Label><Input value={editingProject.description} onChange={e => setEditingProject({ ...editingProject, description: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100" /></div>
-                                                                <div className="space-y-2"><Label className="text-slate-300">Repository Link</Label><Input value={editingProject.repoLink || ''} onChange={e => setEditingProject({ ...editingProject, repoLink: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100" /></div>
-                                                                <div className="space-y-2"><Label className="text-slate-300">Demo Link</Label><Input value={editingProject.demoLink || ''} onChange={e => setEditingProject({ ...editingProject, demoLink: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100" /></div>
-                                                                <div className="space-y-2"><Label className="text-slate-300">LinkedIn Post</Label><Input value={editingProject.linkedInPostLink || ''} onChange={e => setEditingProject({ ...editingProject, linkedInPostLink: e.target.value })} className="bg-white/10 border border-white/20 text-slate-100" /></div>
+                                                                <div className="space-y-2"><Label className="text-slate-300">Title</Label><Input value={editingProject.title} onChange={e => setEditingProject({ ...editingProject, title: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100" /></div>
+                                                                <div className="space-y-2"><Label className="text-slate-300">Description</Label><Input value={editingProject.description} onChange={e => setEditingProject({ ...editingProject, description: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100" /></div>
+                                                                <div className="space-y-2"><Label className="text-slate-300">Repository Link</Label><Input value={editingProject.repoLink || ''} onChange={e => setEditingProject({ ...editingProject, repoLink: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100" /></div>
+                                                                <div className="space-y-2"><Label className="text-slate-300">Demo Link</Label><Input value={editingProject.demoLink || ''} onChange={e => setEditingProject({ ...editingProject, demoLink: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100" /></div>
+                                                                <div className="space-y-2"><Label className="text-slate-300">LinkedIn Post</Label><Input value={editingProject.linkedInPostLink || ''} onChange={e => setEditingProject({ ...editingProject, linkedInPostLink: e.target.value })} className="bg-slate-800 border border-slate-600 text-slate-100" /></div>
                                                             </div>
                                                         )}
-                                                        <DialogFooter><Button onClick={handleUpdateProject} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Save Project</Button></DialogFooter>
+                                                        <DialogFooter><Button onClick={handleUpdateProject} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Save Project</Button></DialogFooter>
                                                     </DialogContent>
                                                 </Dialog>
 
-                                                <Button size="icon" variant="ghost" className="neo-button-3d text-emerald-400 hover:bg-emerald-500/10" onClick={() => handleProjectStatus(p.id, 'approved')}><CheckCircle className="w-4 h-4" /></Button>
-                                                <Button size="icon" variant="ghost" className="neo-button-3d text-red-400 hover:bg-red-500/10" onClick={() => handleProjectStatus(p.id, 'rejected')}><XCircle className="w-4 h-4" /></Button>
+                                                <Button size="icon" variant="ghost" className="neo-button-3d text-emerald-400 hover:bg-emerald-500" onClick={() => handleProjectStatus(p.id, 'approved')}><CheckCircle className="w-4 h-4" /></Button>
+                                                <Button size="icon" variant="ghost" className="neo-button-3d text-red-400 hover:bg-red-500" onClick={() => handleProjectStatus(p.id, 'rejected')}><XCircle className="w-4 h-4" /></Button>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -986,32 +986,32 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Feedback Tab (General) */}
-                <TabsContent value="feedback" className="relative p-6 rounded-2xl bg-gradient-to-br from-amber-500/20 via-yellow-500/15 to-orange-500/20 border border-amber-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-amber-500/30 via-yellow-500/20 to-orange-500/30 backdrop-blur-md border border-amber-400/50 hover:border-amber-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="feedback" className="relative p-6 rounded-2xl bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 border border-amber-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500  border border-amber-400 hover:border-amber-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader><CardTitle className="text-slate-100">User Feedback</CardTitle></CardHeader>
                         <CardContent>
                             <div className="space-y-4">
                                 {generalFeedback.map((f: any) => (
-                                    <div key={f.id || f._id} className="p-4 rounded-lg bg-white/5 border border-white/10 flex flex-col gap-2 hover:bg-white/10 transition-all">
+                                    <div key={f.id || f._id} className="p-4 rounded-lg bg-slate-800 border border-slate-700 flex flex-col gap-2 hover:bg-slate-800 transition-all">
                                         <div className="flex justify-between items-start">
                                             <div>
                                                 <div className="flex items-center gap-2 mb-2">
-                                                    <Badge variant={f.type === 'bug' ? 'destructive' : f.type === 'query' ? 'outline' : 'default'} className={f.type === 'query' ? 'border-slate-400 text-slate-300' : 'border-white/20 text-slate-300'}>
+                                                    <Badge variant={f.type === 'bug' ? 'destructive' : f.type === 'query' ? 'outline' : 'default'} className={f.type === 'query' ? 'border-slate-400 text-slate-300' : 'border-slate-600 text-slate-300'}>
                                                         {f.type.toUpperCase()}
                                                     </Badge>
                                                     <span className="text-xs text-slate-400">{new Date(f.createdat || f.createdAt).toLocaleDateString()}</span>
-                                                    {f.resolved && <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-300 ml-2 border-emerald-400/50">Resolved</Badge>}
+                                                    {f.resolved && <Badge variant="secondary" className="bg-emerald-500 text-emerald-300 ml-2 border-emerald-400">Resolved</Badge>}
                                                 </div>
                                                 <div className="font-semibold text-slate-100">{f.userName || 'Unknown User'} <span className="text-xs font-normal text-slate-400">({f.userEmail || 'No email'})</span></div>
                                                 <p className="text-sm mt-1 font-medium text-slate-300">{f.message}</p>
                                                 {f.rating && (
                                                     <div className="mt-2 flex items-center gap-1 text-sm text-amber-400">
                                                         <Star className="w-4 h-4 fill-current" />
-                                                        <span className="font-semibold">{f.rating}/5</span>
+                                                        <span className="font-semibold">{f.rating}</span>
                                                     </div>
                                                 )}
                                                 {f.reply && (
-                                                    <div className="mt-2 pl-4 border-l-2 border-blue-300/50 text-sm text-slate-300">
+                                                    <div className="mt-2 pl-4 border-l-2 border-blue-300 text-sm text-slate-300">
                                                         <span className="font-semibold text-blue-300 text-xs block mb-1">Reply:</span>
                                                         {f.reply}
                                                     </div>
@@ -1023,32 +1023,32 @@ const AdminDashboard = () => {
                                                         type="checkbox"
                                                         checked={f.resolved || false}
                                                         onChange={() => handleToggleResolved(f.id || f._id, f.resolved)}
-                                                        className="w-4 h-4 rounded border-white/20 bg-white/10 text-emerald-500 focus:ring-emerald-500/50"
+                                                        className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-emerald-500 focus:ring-emerald-500"
                                                     />
                                                     <span className="text-xs text-slate-400">Resolved</span>
                                                 </label>
                                                 {!f.resolved && (
                                                     <Dialog>
                                                         <DialogTrigger asChild>
-                                                            <Button size="sm" onClick={() => setReplyingFeedback(f)} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Reply</Button>
+                                                            <Button size="sm" onClick={() => setReplyingFeedback(f)} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Reply</Button>
                                                         </DialogTrigger>
-                                                        <DialogContent className="bg-white/10 backdrop-blur-md text-slate-100 border border-white/20">
+                                                        <DialogContent className="bg-slate-800  text-slate-100 border border-slate-600">
                                                             <DialogHeader><DialogTitle className="text-slate-100">Reply to {f.userName}</DialogTitle></DialogHeader>
                                                             <div className="py-4">
                                                                 <p className="text-sm text-slate-400 mb-2">"{f.message}"</p>
                                                                 <textarea
-                                                                    className="w-full p-2 border rounded-md bg-white/10 border-white/20 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300/50"
+                                                                    className="w-full p-2 border rounded-md bg-slate-800 border-slate-600 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300"
                                                                     rows={4}
                                                                     placeholder="Type your reply..."
                                                                     value={replyText}
                                                                     onChange={e => setReplyText(e.target.value)}
                                                                 />
                                                             </div>
-                                                            <DialogFooter><Button onClick={handleReply} className="neo-button-3d bg-blue-500/30 hover:bg-blue-500/40 text-blue-100 border border-blue-300/50">Send Reply</Button></DialogFooter>
+                                                            <DialogFooter><Button onClick={handleReply} className="neo-button-3d bg-blue-500 hover:bg-blue-500 text-blue-100 border border-blue-300">Send Reply</Button></DialogFooter>
                                                         </DialogContent>
                                                     </Dialog>
                                                 )}
-                                                <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500/30 hover:bg-red-500/40 border border-red-300/50" onClick={() => handleDeleteFeedback(f.id || f._id)}>Delete</Button>
+                                                <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500 hover:bg-red-500 border border-red-300" onClick={() => handleDeleteFeedback(f.id || f._id)}>Delete</Button>
                                             </div>
                                         </div>
                                     </div>
@@ -1059,21 +1059,21 @@ const AdminDashboard = () => {
                 </TabsContent>
 
                 {/* Contributions Tab */}
-                <TabsContent value="contributions" className="relative p-6 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-green-500/15 to-teal-500/20 border border-emerald-400/40">
-                    <Card className="neo-surface-3d bg-gradient-to-br from-emerald-500/30 via-green-500/20 to-teal-500/30 backdrop-blur-md border border-emerald-400/50 hover:border-emerald-400/70 shadow-lg hover:shadow-xl transition-all">
+                <TabsContent value="contributions" className="relative p-6 rounded-2xl bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 border border-emerald-400">
+                    <Card className="neo-surface-3d bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500  border border-emerald-400 hover:border-emerald-400/70 shadow-lg hover:shadow-xl transition-all">
                         <CardHeader><CardTitle className="text-slate-100 flex items-center gap-2 font-semibold tracking-wider"><Medal className="w-5 h-5 text-emerald-300" /> Member Contributions</CardTitle><CardDescription className="text-slate-400">Track daily contributions and streak activity from members</CardDescription></CardHeader>
                         <CardContent>
                             {contributions.length > 0 ? (
                                 <div className="space-y-3">
                                     {contributions.map((contrib: any) => (
-                                        <div key={contrib.id} className="p-3 rounded-lg bg-white/5 border border-white/10 flex items-start gap-3 hover:bg-white/10 transition-all">
+                                        <div key={contrib.id} className="p-3 rounded-lg bg-slate-800 border border-slate-700 flex items-start gap-3 hover:bg-slate-800 transition-all">
                                             <div className="w-2 h-2 rounded-full mt-1.5 bg-emerald-400"></div>
                                             <div className="flex-1">
                                                 <div className="font-semibold text-slate-100">{contrib.userName || 'Unknown'}</div>
                                                 <div className="text-sm text-slate-300 mt-1">{contrib.description}</div>
                                                 <div className="text-xs text-slate-500 mt-1">{new Date(contrib.createdat).toLocaleString()}</div>
                                             </div>
-                                            <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500/30 hover:bg-red-500/40 border border-red-300/50" onClick={() => handleDeleteContribution(contrib.id || contrib._id)}>Delete</Button>
+                                            <Button size="sm" variant="destructive" className="neo-button-3d text-red-100 bg-red-500 hover:bg-red-500 border border-red-300" onClick={() => handleDeleteContribution(contrib.id || contrib._id)}>Delete</Button>
                                         </div>
                                     ))}
                                 </div>

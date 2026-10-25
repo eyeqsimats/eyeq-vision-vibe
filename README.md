@@ -99,7 +99,8 @@ Refer to:
 
 * **President** — Aswath S
 * **Vice President** — Sasvanthu G
-* **Secretary** — Harsh Limkar N
+* **Secretary** — Sudharsan R
+* **Treasurer** — Dhanushya R B
 
 ---
 ## Development Team:

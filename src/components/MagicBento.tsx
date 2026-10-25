@@ -117,33 +117,6 @@ const MagicBento = ({
         transition: enableTilt ? "transform 0.1s ease-out" : undefined,
       }}
     >
-      {/* Border Glow Effect */}
-      {enableBorderGlow && isHovered && (
-        <div
-          className="absolute inset-0 rounded-2xl opacity-75"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, 0.3), transparent 70%)`,
-            filter: `blur(20px)`,
-            pointerEvents: "none",
-          }}
-        />
-      )}
-
-      {/* Spotlight Effect */}
-      {enableSpotlight && isHovered && (
-        <div
-          className="absolute opacity-30 rounded-full pointer-events-none transition-opacity duration-300"
-          style={{
-            width: spotlightRadius * 2,
-            height: spotlightRadius * 2,
-            background: `radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%)`,
-            left: mousePosition.x - spotlightRadius,
-            top: mousePosition.y - spotlightRadius,
-            filter: "blur(40px)",
-          }}
-        />
-      )}
-
       {/* Animated Particles/Stars */}
       {enableStars && (
         <div className="absolute inset-0 pointer-events-none">
@@ -155,7 +128,6 @@ const MagicBento = ({
                 left: `${particle.x}%`,
                 top: `${particle.y}%`,
                 opacity: isHovered ? 0.8 : 0.3,
-                boxShadow: `0 0 10px rgba(${glowColor}, 0.5)`,
                 transition: "opacity 0.3s",
               }}
             />
@@ -168,17 +140,7 @@ const MagicBento = ({
         {children}
       </div>
 
-      {/* Magnetism glow effect */}
-      {enableMagnetism && isHovered && (
-        <div
-          className="absolute pointer-events-none rounded-2xl opacity-20"
-          style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, 0.4), transparent 70%)`,
-            filter: `blur(40px)`,
-            inset: 0,
-          }}
-        />
-      )}
+
     </div>
   );
 };

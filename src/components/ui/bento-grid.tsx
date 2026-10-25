@@ -1,8 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
-
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 
 interface BentoGridProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode
@@ -15,8 +12,8 @@ interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
   background: ReactNode
   Icon: React.ElementType
   description: string
-  href: string
-  cta: string
+  href?: string
+  cta?: string
   onCTAClick?: () => void
 }
 
@@ -47,82 +44,30 @@ const BentoCard = ({
 }: BentoCardProps) => (
   <div
     key={name}
+    onClick={onCTAClick}
     className={cn(
-      "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-lg border border-white/20", // Added thin white border
-      // light styles
-      "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.08),0_2px_4px_rgba(0,0,0,.1),0_12px_24px_rgba(0,0,0,.1)]",
-      // dark styles
-      "dark:bg-background dark:[box-shadow:0_-20px_80px_-20px_#ffffff3f_inset] dark:[border:1px_solid_rgba(255,255,255,.2)]",
+      "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl border border-white/10",
+      "bg-neutral-950/90 hover:bg-neutral-900/90 shadow-xl",
+      "transition-all duration-300 hover:border-primary/40 hover:shadow-primary/10",
+      onCTAClick && "cursor-pointer",
       className
     )}
     {...props}
   >
     <div>{background}</div>
-    <div className="p-5">
-      <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-10">
-        <Icon className="h-12 w-12 origin-left transform-gpu text-white transition-all duration-300 ease-in-out group-hover:scale-75" />
-        <h3 className="text-xl font-semibold text-white">
+    <div className="p-6 relative z-10">
+      <div className="z-10 flex flex-col gap-1.5 transition-all duration-300">
+        <Icon className="h-10 w-10 origin-left text-primary transition-all duration-300 ease-in-out group-hover:scale-95" />
+        <h3 className="text-xl font-bold text-white tracking-tight">
           {name}
         </h3>
-        <p className="max-w-lg text-gray-200">
+        <p className="max-w-lg text-sm text-neutral-300 leading-relaxed">
           {description}
         </p>
       </div>
-
-      <div
-        className={cn(
-          "pointer-events-none flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:hidden"
-        )}
-      >
-        <Button
-          variant="link"
-          asChild={!!href && !onCTAClick}
-          size="sm"
-          className="pointer-events-auto p-0 text-white"
-          onClick={onCTAClick}
-        >
-          {href && !onCTAClick ? (
-            <a href={href}>
-              {cta}
-              <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-            </a>
-          ) : (
-            <>
-              {cta}
-              <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-            </>
-          )}
-        </Button>
-      </div>
     </div>
 
-    <div
-      className={cn(
-        "pointer-events-none absolute bottom-0 hidden w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:flex"
-      )}
-    >
-      <Button
-        variant="link"
-        asChild={!!href && !onCTAClick}
-        size="sm"
-        className="pointer-events-auto p-0 text-white"
-        onClick={onCTAClick}
-      >
-        {href && !onCTAClick ? (
-          <a href={href}>
-            {cta}
-            <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-          </a>
-        ) : (
-          <>
-            {cta}
-            <ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
-          </>
-        )}
-      </Button>
-    </div>
-
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300" />
   </div>
 )
 

@@ -21,6 +21,7 @@ import eyeqLogo from "@/assets/eyeq-logo.png";
 import presidentImg from "@/assets/team/president.jpg";
 import vicePresidentImg from "@/assets/team/vice-president.jpg";
 import secretaryImg from "@/assets/team/secretary.jpg";
+import treasurerImg from "@/assets/team/treasurer.jpg";
 import Navbar from "@/components/Navbar";
 import { motion, Variants } from "framer-motion";
 import TeamMember from "@/components/TeamMember";
@@ -43,7 +44,6 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { Marquee } from "@/components/ui/marquee";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
-import { AnimatedList } from "@/components/ui/animated-list";
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 
 interface ModalContent {
@@ -117,26 +117,20 @@ const Index = () => {
       background: (
         <Marquee
           pauseOnHover
-          className="absolute top-10 [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] [--duration:20s]"
+          className="absolute top-6 [--duration:20s]"
         >
           {files.map((f, idx) => (
             <figure
               key={idx}
-              className={cn(
-                "relative w-32 cursor-pointer overflow-hidden rounded-xl border p-4",
-                "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-                "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
-                "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
-              )}
+              className="relative w-36 cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-neutral-900/90 p-3.5 shadow-lg transition-all duration-300 hover:border-primary/50 hover:scale-105"
             >
               <div className="flex flex-row items-center gap-2">
-                <div className="flex flex-col">
-                  <figcaption className="text-sm font-medium dark:text-white">
-                    {f.name}
-                  </figcaption>
-                </div>
+                <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
+                <figcaption className="text-sm font-semibold text-white truncate">
+                  {f.name}
+                </figcaption>
               </div>
-              <blockquote className="mt-2 text-xs">{f.body}</blockquote>
+              <blockquote className="mt-1.5 text-xs text-neutral-300 leading-snug">{f.body}</blockquote>
             </figure>
           ))}
         </Marquee>
@@ -154,21 +148,51 @@ const Index = () => {
       ),
       className: "col-span-3 md:col-span-2", // Full width on mobile, 2/3 on desktop
       background: (
-        <div className="absolute top-6 right-4 h-[300px] w-[calc(100%-2rem)] scale-90 border-none [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-95">
-          <AnimatedList className="space-y-4">
-            <div className="bg-primary/10 p-5 rounded-lg shadow-sm">
-              <h4 className="font-bold text-primary mb-1">Weekly Coding Session</h4>
-              <p className="text-sm text-muted-foreground">Every Saturday 6PM IST</p>
+        <div className="absolute top-4 right-4 left-4 md:left-auto md:w-[480px] transition-all duration-300 ease-out">
+          <div className="flex items-center justify-between mb-2 px-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-primary">Community Rhythm & Events</span>
             </div>
-            <div className="bg-secondary/10 p-5 rounded-lg shadow-sm">
-              <h4 className="font-bold text-secondary mb-1">Project Showcase</h4>
-              <p className="text-sm text-muted-foreground">Monthly Demo Day</p>
+            <span className="text-[10px] text-neutral-400 font-medium">Weekly • Monthly</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="bg-neutral-900/90 border border-white/10 p-2.5 rounded-xl shadow-md hover:border-emerald-500/40 transition-all">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Weekly</span>
+                <span className="text-[10px] text-neutral-400 font-medium">Sat 6 PM</span>
+              </div>
+              <h4 className="font-semibold text-white text-xs truncate">Vibe Coding Session</h4>
+              <p className="text-[11px] text-neutral-400 truncate mt-0.5">Hands-on peer coding</p>
             </div>
-            <div className="bg-accent/10 p-5 rounded-lg shadow-sm">
-              <h4 className="font-bold text-accent-foreground mb-1">Guest Lecture</h4>
-              <p className="text-sm text-muted-foreground">Industry Expert Talk</p>
+
+            <div className="bg-neutral-900/90 border border-white/10 p-2.5 rounded-xl shadow-md hover:border-purple-500/40 transition-all">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">Demo Day</span>
+                <span className="text-[10px] text-neutral-400 font-medium">Monthly</span>
+              </div>
+              <h4 className="font-semibold text-white text-xs truncate">Project Showcase</h4>
+              <p className="text-[11px] text-neutral-400 truncate mt-0.5">Present to peers & mentors</p>
             </div>
-          </AnimatedList>
+
+            <div className="bg-neutral-900/90 border border-white/10 p-2.5 rounded-xl shadow-md hover:border-blue-500/40 transition-all">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">Talk</span>
+                <span className="text-[10px] text-neutral-400 font-medium">Guest AMA</span>
+              </div>
+              <h4 className="font-semibold text-white text-xs truncate">Expert Masterclass</h4>
+              <p className="text-[11px] text-neutral-400 truncate mt-0.5">Industry CV engineers</p>
+            </div>
+
+            <div className="bg-neutral-900/90 border border-white/10 p-2.5 rounded-xl shadow-md hover:border-amber-500/40 transition-all">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">Upcoming</span>
+                <span className="text-[10px] text-neutral-400 font-medium">36h Sprint</span>
+              </div>
+              <h4 className="font-semibold text-white text-xs truncate">Vision Hackathon</h4>
+              <p className="text-[11px] text-neutral-400 truncate mt-0.5">Build models & win awards</p>
+            </div>
+          </div>
         </div>
       ),
     },
@@ -184,13 +208,21 @@ const Index = () => {
       ),
       className: "col-span-3 md:col-span-2", // Full width on mobile, 2/3 on desktop
       background: (
-        <div className="absolute top-6 right-4 h-[300px] w-[calc(100%-2rem)] border-none [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-105">
+        <div className="absolute top-4 right-4 h-[240px] w-[calc(100%-2rem)] md:w-[420px] transition-all duration-300 ease-out">
           <AnimatedBeam className="w-full h-full">
-            <div className="flex justify-between items-center h-full px-10">
-              <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-lg">You</div>
-              <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-white font-bold shadow-md">M1</div>
-              <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold shadow-md">M2</div>
-              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-bold shadow-md">M3</div>
+            <div className="flex justify-between items-center h-full px-6">
+              <div className="w-16 h-16 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center text-white font-bold shadow-[0_0_20px_rgba(132,0,255,0.4)]">
+                You
+              </div>
+              <div className="w-14 h-14 rounded-full bg-neutral-900 border border-white/20 flex items-center justify-center text-white font-semibold shadow-md">
+                Mentor
+              </div>
+              <div className="w-14 h-14 rounded-full bg-neutral-900 border border-white/20 flex items-center justify-center text-neutral-200 font-semibold shadow-md">
+                Peer 1
+              </div>
+              <div className="w-14 h-14 rounded-full bg-neutral-900 border border-white/20 flex items-center justify-center text-neutral-300 font-semibold shadow-md">
+                Peer 2
+              </div>
             </div>
           </AnimatedBeam>
         </div>
@@ -208,12 +240,16 @@ const Index = () => {
         "Our structured learning path takes you from foundational concepts to advanced computer vision techniques. We start with basics like image processing and gradually progress to complex topics such as deep learning for computer vision, neural networks, and cutting-edge research areas. Each module includes theoretical learning, hands-on coding exercises, and project implementation. Our curriculum is regularly updated to reflect the latest industry trends and research developments. Whether you're a complete beginner or looking to advance your skills, our learning path provides a clear roadmap to achieve your goals in computer vision."
       ),
       background: (
-        <div className="absolute top-12 right-4 origin-top scale-90 rounded-md border p-2 [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] transition-all duration-300 ease-out group-hover:scale-95">
-          <div className="p-5 text-center">
-            <div className="text-sm font-medium mb-3 text-muted-foreground">Today</div>
-            <div className="text-3xl font-bold mb-1">{new Date().getDate()}</div>
-            <div className="text-sm text-muted-foreground">
-              {new Date().toLocaleString('default', { month: 'short' })}
+        <div className="absolute top-6 right-6 transition-all duration-300 ease-out">
+          <div className="rounded-xl border border-white/10 bg-neutral-900/90 p-4 shadow-xl w-32 text-center">
+            <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Today</div>
+            <div className="text-4xl font-extrabold text-white mb-1">{new Date().getDate()}</div>
+            <div className="text-xs font-medium text-neutral-400">
+              {new Date().toLocaleString('default', { month: 'long' })}
+            </div>
+            <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-[10px] text-neutral-300 font-medium">CV Track Active</span>
             </div>
           </div>
         </div>
@@ -239,12 +275,21 @@ const Index = () => {
       linkedinUrl: "http://www.linkedin.com/in/sasvanthu-g",
     },
     {
-      name: "Harsh Limkar N",
+      name: "Sudharsan R",
       role: "Secretary",
       quote:
         "Organization meets inspiration. My goal is to ensure our community runs smoothly while fostering meaningful connections and collaborative learning.",
       imageUrl: secretaryImg,
-      linkedinUrl: "https://www.linkedin.com/in/harsh-limkar/",
+      linkedinUrl: "https://www.linkedin.com/company/eyeq-simats/",
+      imageClassName: "object-[center_20%]",
+    },
+    {
+      name: "Dhanushya R B",
+      role: "Treasurer",
+      quote:
+        "Dedicated to managing our resources with transparency and strategic foresight, empowering the club to reach new heights and achieve its full potential.",
+      imageUrl: treasurerImg,
+      linkedinUrl: "https://www.linkedin.com/company/eyeq-simats/",
     },
   ];
 
@@ -395,18 +440,18 @@ const Index = () => {
             {showContent && (
               <>
                 <Element name="about">
-                  <section id="about" className="relative py-32 px-4 z-10">
+                  <section id="about" className="relative py-12 md:py-16 px-4 z-10">
                     <div className="max-w-7xl mx-auto relative">
                       <ScrollReveal animation="fade" duration={800}>
                         <div className="text-center">
                           {/* Logo */}
-                          <div className="flex justify-center mb-12">
+                          <div className="flex justify-center mb-8">
                             <div className="relative">
                               <ScrollReveal animation="scale" duration={1000} delay={200}>
                                 <img
                                   src={eyeqLogo}
                                   alt="EyeQ Club Logo"
-                                  className="w-80 h-80 object-contain hover:scale-105 transition-all duration-500 mx-auto hover-lift"
+                                  className="w-56 h-56 md:w-64 md:h-64 object-contain hover:scale-105 transition-all duration-500 mx-auto hover-lift"
                                 />
                               </ScrollReveal>
                             </div>
@@ -415,18 +460,18 @@ const Index = () => {
                           {/* Content */}
                           <div className="max-w-4xl mx-auto">
                             {/* Heading with Gradient Underline */}
-                            <div className="mb-8">
-                              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-primary leading-tight">
+                            <div className="mb-6">
+                              <h2 className="text-4xl md:text-5xl font-bold mb-3 text-primary leading-tight">
                                 Empowering Visionaries in Computer Vision
-                              </h1>
+                              </h2>
                               <ScrollReveal animation="scale" delay={800} duration={600}>
-                                <div className="h-1 w-32 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto"></div>
+                                <div className="h-1 w-28 bg-gradient-to-r from-primary to-purple-500 rounded-full mx-auto"></div>
                               </ScrollReveal>
                             </div>
 
                             {/* Mission Statement */}
                             <ScrollReveal animation="slide-up" delay={300} duration={900}>
-                              <p className="text-xl text-foreground leading-relaxed mb-12 max-w-3xl mx-auto">
+                              <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8 md:mb-10 max-w-3xl mx-auto">
                                 EyeQ bridges the gap between learning and innovation through{" "}
                                 <span className="text-primary font-semibold">real-world projects</span>,{" "}
                                 <span className="text-primary font-semibold">mentorship</span>, and{" "}
@@ -435,10 +480,10 @@ const Index = () => {
                             </ScrollReveal>
 
                             {/* Animated Stats */}
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-2xl mx-auto">
                               <AnimatedSection delay={100}>
                                 <div className="text-center">
-                                  <div className="text-4xl font-bold text-primary mb-2">
+                                  <div className="text-4xl font-bold text-primary mb-1">
                                     <CountUp
                                       from={0}
                                       to={50}
@@ -453,7 +498,7 @@ const Index = () => {
                               </AnimatedSection>
                               <AnimatedSection delay={300}>
                                 <div className="text-center">
-                                  <div className="text-4xl font-bold text-primary mb-2">
+                                  <div className="text-4xl font-bold text-primary mb-1">
                                     <CountUp
                                       from={0}
                                       to={150}
@@ -468,7 +513,7 @@ const Index = () => {
                               </AnimatedSection>
                               <AnimatedSection delay={500}>
                                 <div className="text-center">
-                                  <div className="text-4xl font-bold text-primary mb-2">
+                                  <div className="text-4xl font-bold text-primary mb-1">
                                     <CountUp
                                       from={0}
                                       to={10}
@@ -482,12 +527,6 @@ const Index = () => {
                                 </div>
                               </AnimatedSection>
                             </div>
-
-                            {/* Call to Action */}
-                            <ScrollReveal animation="slide-up" delay={500} duration={900}>
-                              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                              </div>
-                            </ScrollReveal>
                           </div>
                         </div>
                       </ScrollReveal>
@@ -497,15 +536,15 @@ const Index = () => {
 
                 {/* What Makes EyeQ Different */}
                 <Element name="features">
-                  <section className="relative py-20 px-4 z-10">
+                  <section className="relative py-12 md:py-16 px-4 z-10">
                     <div className="max-w-6xl mx-auto">
                       <ScrollReveal animation="fade" duration={800}>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-primary">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-10 text-center text-primary">
                           What Makes EyeQ Different?
                         </h2>
                       </ScrollReveal>
 
-                      <div className="mb-16">
+                      <div>
                         <BentoGrid>
                           {bentoFeatures.map((feature, idx) => (
                             <BentoCard key={idx} {...feature} />
@@ -517,23 +556,16 @@ const Index = () => {
                 </Element>
 
                 {/* Project Parallax */}
-                <section className="relative py-20 px-4 z-10">
-                  <div className="max-w-6xl mx-auto mb-16">
-                    <ScrollReveal animation="fade" duration={800}>
-                      <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-primary">
-                        MEMBERS PROJECT
-                      </h2>
-                    </ScrollReveal>
-                    <ProjectParallax />
-                  </div>
+                <section className="relative py-6 md:py-10 z-10 overflow-hidden">
+                  <ProjectParallax />
                 </section>
 
                 {/* Student Benefits */}
-                <section className="relative py-20 px-4 z-10">
+                <section className="relative py-12 md:py-16 px-4 z-10">
                   <div className="max-w-6xl mx-auto">
                     <ScrollReveal>
-                      <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-primary">
-                        Student Benefitsn
+                      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-10 text-center text-primary">
+                        Student Benefits
                       </h2>
                     </ScrollReveal>
 
@@ -608,15 +640,15 @@ const Index = () => {
                 </section>
 
                 {/* Meet the Core Team */}
-                <section className="relative py-20 px-4 z-10">
+                <section className="relative pt-12 md:pt-16 pb-6 md:pb-8 px-4 z-10">
                   <div className="max-w-6xl mx-auto">
                     <ScrollReveal animation="fade" duration={800}>
-                      <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center text-primary">
+                      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 md:mb-10 text-center text-primary">
                         Meet the Core Team
                       </h2>
                     </ScrollReveal>
 
-                    <div className="flex flex-wrap justify-center gap-8">
+                    <div className="flex flex-wrap justify-center gap-6 md:gap-8">
                       {teamMembers.map((member, index) => (
                         <ScrollReveal key={index} delay={index * 100} animation="slide-up" duration={800}>
                           <TeamMember
@@ -624,6 +656,7 @@ const Index = () => {
                             role={member.role}
                             imageUrl={member.imageUrl}
                             linkedinUrl={member.linkedinUrl}
+                            imageClassName={member.imageClassName}
                           />
                         </ScrollReveal>
                       ))}
@@ -632,10 +665,10 @@ const Index = () => {
                 </section>
 
                 {/* Team Member Quotes */}
-                <section className="relative py-20 px-4 z-10 bg-muted/30">
+                <section className="relative pt-6 md:pt-8 pb-12 md:pb-16 px-4 z-10 bg-muted">
                   <div className="max-w-6xl mx-auto">
                     <motion.div
-                      className="grid grid-cols-1 gap-8"
+                      className="grid grid-cols-1 gap-6 md:gap-8"
                       variants={containerVariants}
                       initial="hidden"
                       whileInView="visible"
@@ -643,13 +676,13 @@ const Index = () => {
                     >
                       {teamMembers.map((member, index) => (
                         <ScrollReveal key={index} animation="slide-up" delay={index * 150} duration={700}>
-                          <motion.div variants={itemVariants} className="bg-card border border-border rounded-lg shadow-lg p-8 hover:border-primary/50 hover:shadow-primary/20 hover:shadow-2xl transition-all duration-300">
-                            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                          <motion.div variants={itemVariants} className="bg-card border border-border rounded-lg shadow-lg p-6 md:p-8 hover:border-primary/50 hover:shadow-primary/20 hover:shadow-2xl transition-all duration-300">
+                            <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
                               <div className="flex-1 flex flex-col justify-center">
-                                <h3 className="text-xl font-semibold text-primary mb-2">
+                                <h3 className="text-xl font-semibold text-primary mb-1 md:mb-2">
                                   {member.name}
                                 </h3>
-                                <p className="text-muted-foreground text-sm font-medium mb-4">
+                                <p className="text-muted-foreground text-sm font-medium mb-3 md:mb-4">
                                   {member.role}
                                 </p>
 
@@ -671,7 +704,7 @@ const Index = () => {
 
                 {/* Footer */}
                 <Element name="contact">
-                  <footer id="contact" className="relative py-12 px-4 border-t border-border z-10">
+                  <footer id="contact" className="relative py-12 md:py-16 px-4 border-t border-border z-10">
                     <div className="max-w-6xl mx-auto">
                       <div className="grid md:grid-cols-3 gap-8">
                         {/* Column 1: Logo & Slogan */}
@@ -753,7 +786,6 @@ const Index = () => {
                     </div>
                   </footer>
                 </Element>
-
                 <BannerModal
                   isOpen={modalOpen}
                   onClose={() => setModalOpen(false)}

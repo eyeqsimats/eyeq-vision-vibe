@@ -88,7 +88,7 @@ const QueriesTab = () => {
                                 </div>
                                 <p className="font-medium text-sm text-foreground">{q.message}</p>
                                 {q.reply && (
-                                    <div className="bg-secondary/50 p-3 rounded-lg border-l-2 border-primary mt-2">
+                                    <div className="bg-secondary p-3 rounded-lg border-l-2 border-primary mt-2">
                                         <p className="text-xs font-semibold text-primary mb-1">Admin Reply:</p>
                                         <p className="text-sm text-muted-foreground">{q.reply}</p>
                                     </div>

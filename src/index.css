@@ -25,6 +25,19 @@
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 20s) linear infinite;
+}
+
 html {
   scroll-behavior: smooth;
   height: 100%;
@@ -566,19 +579,6 @@ body {
 @keyframes rainbowShift {
   0% { background-position: 0% 50%; }
   100% { background-position: 200% 50%; }
-}
-
-.glass-line {
-  position: relative;
-}
-
-.glass-line::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -10px 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-  opacity: 0.6;
 }
 
 /* Staggered animations */

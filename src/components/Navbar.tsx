@@ -61,7 +61,7 @@ const Navbar = ({ className }: NavbarProps) => {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 py-4",
-        isScrolled || !isHomePage ? "bg-background/80 backdrop-blur-md border-b border-white/10" : "bg-transparent",
+        isScrolled || !isHomePage ? "bg-background border-b border-border" : "bg-transparent",
         className
       )}
     >
@@ -89,7 +89,7 @@ const Navbar = ({ className }: NavbarProps) => {
         </div>
 
         {/* Desktop Nav - Right Actions */}
-        <div className="hidden md:flex items-center gap-1 px-2 py-1 rounded-full border border-white/10 bg-black/20 backdrop-blur-sm ml-auto">
+        <div className="hidden md:flex items-center gap-1 px-2 py-1 rounded-full border border-border bg-muted ml-auto">
           {user ? (
             <>
               {isAdmin && (
@@ -98,7 +98,7 @@ const Navbar = ({ className }: NavbarProps) => {
               <button onClick={handleLogout} className="cursor-pointer px-4 py-2 text-sm font-medium hover:text-red-500 transition-colors">Logout</button>
             </>
           ) : (
-            <RouterLink to="/dashboard" className="cursor-pointer px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors">Member Dashboard</RouterLink>
+            <RouterLink to="/dashboard" className="cursor-pointer px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-full hover:bg-primary transition-colors">Member Dashboard</RouterLink>
           )}
         </div>
 
@@ -122,7 +122,7 @@ const Navbar = ({ className }: NavbarProps) => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center gap-8 md:hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
